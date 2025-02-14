@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   inputs,
   ...
 }:
@@ -38,18 +39,6 @@
         mode = "444";
       }
       {
-        file = "/etc/ssh/ssh_host_ed25519_key";
-        how = "bindmount";
-        inInitrd = true;
-        mode = "400";
-      }
-      {
-        file = "/etc/ssh/ssh_host_rsa_key";
-        how = "bindmount";
-        inInitrd = true;
-        mode = "400";
-      }
-      {
         file = "/var/lib/systemd/random-seed";
         how = "symlink";
         inInitrd = true;
@@ -59,6 +48,10 @@
     directories = [
       {
         directory = "/var/lib/nixos";
+        inInitrd = true;
+      }
+      {
+        directory = "/etc/ssh";
         inInitrd = true;
       }
       "/var/lib/systemd/timers"
@@ -76,4 +69,8 @@
       ];
     };
   };
+  systemd.services.systemd-machine-id-commit.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.systemd}/bin/systemd-machine-id-setup"
+  ];
 }
