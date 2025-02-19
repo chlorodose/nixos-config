@@ -28,7 +28,12 @@
       lib = (import ./lib) inputs.nixpkgs.lib;
       nixosModule = import ./modules/nixos;
       homeModule = import ./modules/home;
-      nixosConfigurations = { };
+      nixosConfigurations = {
+        cl-laptop = inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [ (import ./hosts/cl-laptop) ];
+        };
+      };
       homeConfigurations = { };
     };
 }
