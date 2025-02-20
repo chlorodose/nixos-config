@@ -12,7 +12,7 @@
 
   modules.desktop.enable = true;
   modules.hyprland.enable = true;
-  modules.regreet.enable = false;
+  modules.regreet.enable = true;
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
 
