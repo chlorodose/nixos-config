@@ -24,7 +24,5 @@
     sops.secrets."user-passwords/root" = {
       neededForUsers = true;
     };
-
-    systemd.extraConfig = "DefaultDeviceTimeoutSec = 3s";
   };
 }
