@@ -42,11 +42,20 @@
           inherit specialArgs;
           modules = [ (import ./hosts/cl-laptop) ];
         };
+        cl-server = inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [ (import ./hosts/cl-server) ];
+        };
       };
       homeConfigurations = {
         "chlorodose@cl-laptop" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = outputs.nixosConfigurations.cl-laptop.pkgs;
           modules = [ (import ./users/chlorodose/hosts/cl-laptop.nix) ];
+          inherit extraSpecialArgs;
+        };
+        "chlorodose@cl-server" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = outputs.nixosConfigurations.cl-server.pkgs;
+          modules = [ (import ./users/chlorodose/hosts/cl-server.nix) ];
           inherit extraSpecialArgs;
         };
       };

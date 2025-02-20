@@ -1,18 +1,18 @@
 {
   config,
-  outputs,
   pkgs,
+  outputs,
   ...
 }:
 {
   imports = [ outputs.nixosModule ] ++ (outputs.lib.scanPath ./.);
   time.timeZone = "Asia/Shanghai";
-  networking.hostName = "cl-laptop";
+  networking.hostName = "cl-server";
   system.stateVersion = "25.05";
 
-  modules.desktop.enable = true;
-  modules.hyprland.enable = true;
-  modules.regreet.enable = true;
+  modules.desktop.enable = false;
+  modules.hyprland.enable = false;
+  modules.regreet.enable = false;
   modules.machine.enable = true;
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
@@ -24,7 +24,6 @@
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      "networkmanager"
     ];
     hashedPasswordFile = config.sops.secrets."user-passwords/chlorodose".path;
   };
