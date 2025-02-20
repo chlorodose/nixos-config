@@ -13,7 +13,6 @@
     boot.initrd.systemd.enable = true;
 
     programs = {
-      bash.enable = true;
       fish.enable = true;
       zsh.enable = true;
     };

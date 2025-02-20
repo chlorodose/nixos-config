@@ -1,4 +1,5 @@
 lib: {
+  getSecret = lib.path.append ../secrets;
   scanPath =
     path:
     builtins.map (f: (path + "/${f}")) (

@@ -15,6 +15,14 @@
     preservation = {
       url = "github:nix-community/preservation/main";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
   outputs =
     { self, ... }:
@@ -23,6 +31,7 @@
       specialArgs = {
         inherit inputs outputs;
       };
+      extraSpecialArgs = specialArgs;
     in
     {
       lib = (import ./lib) inputs.nixpkgs.lib;
@@ -34,6 +43,12 @@
           modules = [ (import ./hosts/cl-laptop) ];
         };
       };
-      homeConfigurations = { };
+      homeConfigurations = {
+        "chlorodose@cl-laptop" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = outputs.nixosConfigurations.cl-laptop.pkgs;
+          modules = [ (import ./users/chlorodose/hosts/cl-laptop.nix) ];
+          inherit extraSpecialArgs;
+        };
+      };
     };
 }
