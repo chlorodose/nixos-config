@@ -81,7 +81,6 @@
         sandbox-fallback = false;
         sync-before-registering = true;
         use-cgroups = true;
-        use-xdg-base-directories = true;
       };
     };
   };
