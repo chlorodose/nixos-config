@@ -26,6 +26,7 @@
       fsType = "tmpfs";
       options = [
         "defaults"
+        "X-mount.mode=755"
       ];
       neededForBoot = true;
     };
