@@ -14,6 +14,7 @@
   modules.hyprland.enable = true;
   modules.regreet.enable = true;
   modules.machine.enable = true;
+  modules.remote.enable = false;
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
 
