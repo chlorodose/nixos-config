@@ -27,6 +27,9 @@
       "wheel"
     ];
     hashedPasswordFile = config.sops.secrets."user-passwords/chlorodose".path;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKF7rjnMuwq0bB/G4dXVSZHegO06qKm4BSBREUHml7Dp chlorodose <chlorodose@chlorodose.me>"
+    ];
   };
   sops.secrets."user-passwords/chlorodose" = {
     neededForUsers = true;
