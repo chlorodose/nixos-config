@@ -10,3 +10,9 @@ creation_rules:
       age:
       - *host_cl-server
       - *host_cl-laptop
+  - path_regex: secrets/services.yaml
+    key_groups:
+    - pgp:
+      - *user_chlorodose
+      age:
+      - *host_cl-server
