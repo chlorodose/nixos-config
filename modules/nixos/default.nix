@@ -7,6 +7,10 @@
 {
   imports = outputs.lib.scanPath ./.;
   config = {
+    environment.systemPackages = with pkgs; [
+      home-manager
+    ];
+
     i18n = {
       defaultLocale = "C.UTF-8";
       supportedLocales = [
