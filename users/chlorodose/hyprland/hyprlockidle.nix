@@ -24,7 +24,7 @@
 
         label = [
           {
-            text = ''cmd[update:10000] date +"%B %d日, %A"'';
+            text = ''cmd[update:10000] ${pkgs.coreutils}/bin/date +"%B %d日, %A"'';
             color = "$text";
             font_size = 55;
             position = "100, 70";
@@ -34,7 +34,7 @@
             shadow_size = 10;
           }
           {
-            text = ''cmd[update:10000] date +%R'';
+            text = ''cmd[update:10000] ${pkgs.coreutils}/bin/date +%R'';
             color = "$text";
             font_size = 55;
             position = "-100, 70";
