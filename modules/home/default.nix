@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = outputs.lib.scanPath ./.;
+  imports = [ ../nix.nix ] ++ outputs.lib.scanPath ./.;
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
   config = {
     home.language.base = "zh_CN.UTF-8";
