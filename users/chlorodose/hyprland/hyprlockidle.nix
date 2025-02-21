@@ -79,7 +79,25 @@
         general = {
           lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.uwsm}/bin/uwsm app -t service -- ${pkgs.hyprlock}/bin/hyprlock";
           unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
+          before_sleep_cmd = "${pkgs.elogind}/bin/loginctl lock-session";
+          inhibit_sleep = 3;
         };
+        listener = [
+          {
+            timeout = 150;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10%";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+          {
+            timeout = 150;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
+          }
+          {
+            timeout = 300;
+            on-timeout = "${pkgs.systemd}/bin/systemctl sleep";
+          }
+        ];
       };
     };
   };
