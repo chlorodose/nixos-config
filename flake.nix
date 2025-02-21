@@ -37,6 +37,12 @@
       lib = (import ./lib) inputs.nixpkgs.lib;
       nixosModule = import ./modules/nixos;
       homeModule = import ./modules/home;
+      templates.rust = {
+        path = templates/rust;
+        description = ''
+          Rust project template.
+        '';
+      };
       nixosConfigurations = {
         cl-laptop = inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs;
