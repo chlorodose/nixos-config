@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ outputs.nixosModule ] ++ (outputs.lib.scanPath ./.);
+  imports = [ outputs.nixosModules.default ] ++ (outputs.lib.scanPath ./.);
   time.timeZone = "Asia/Shanghai";
   networking.hostName = "cl-laptop";
   system.stateVersion = "25.05";

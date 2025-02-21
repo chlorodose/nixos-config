@@ -35,8 +35,8 @@
     in
     {
       lib = (import ./lib) inputs.nixpkgs.lib;
-      nixosModule = import ./modules/nixos;
-      homeModule = import ./modules/home;
+      nixosModules.default = import ./modules/nixos;
+      homeModules.default = import ./modules/home;
       templates.rust = {
         path = templates/rust;
         description = ''

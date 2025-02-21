@@ -1,6 +1,6 @@
 { config, outputs, ... }:
 {
-  imports = [ outputs.homeModule ] ++ outputs.lib.scanPath ./.;
+  imports = [ outputs.homeModules.default ] ++ outputs.lib.scanPath ./.;
   config = {
     home.username = "chlorodose";
     home.homeDirectory = "/home/${config.home.username}";
