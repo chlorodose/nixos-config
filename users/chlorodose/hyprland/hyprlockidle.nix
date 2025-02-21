@@ -23,13 +23,50 @@
           }
         ];
 
+        label = [
+          {
+            text = ''cmd[update:10000] date +"%B %d日, %A"'';
+            color = "$text";
+            font_size = 55;
+            position = "100, 70";
+            halign = "left";
+            valign = "bottom";
+            shadow_passes = 5;
+            shadow_size = 10;
+          }
+          {
+            text = ''cmd[update:10000] date +%R'';
+            color = "$text";
+            font_size = 55;
+            position = "-100, 70";
+            halign = "right";
+            valign = "bottom";
+            shadow_passes = 5;
+            shadow_size = 10;
+          }
+          {
+            text = "$USER";
+            color = "$subtext1";
+            font_size = 20;
+            position = "-100, 160";
+            halign = "right";
+            valign = "bottom";
+            shadow_passes = 5;
+            shadow_size = 10;
+          }
+        ];
+
         input-field = [
           {
             dots_center = true;
             fade_on_empty = false;
-            font_color = "rgb(202, 211, 245)";
-            inner_color = "rgb(91, 96, 120)";
-            outer_color = "rgb(24, 25, 38)";
+            font_color = "$text";
+            inner_color = "$surface2";
+            outer_color = "$surface0";
+            check_color = "$sky";
+            fail_color = "$red";
+            placeholder_text = "请输入密码";
+            fail_text = "<b>密码错误($ATTEMPTS)</b>";
             outline_thickness = 5;
             shadow_passes = 2;
           }
