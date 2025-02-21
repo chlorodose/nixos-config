@@ -9,6 +9,16 @@
   ];
   nix = {
     package = pkgs.lix;
+    registry.system = {
+      from = {
+        id = "system";
+        type = "indirect";
+      };
+      to = {
+        type = "path";
+        path = (builtins.toString ../.);
+      };
+    };
     settings = {
       experimental-features = [
         "flakes"
