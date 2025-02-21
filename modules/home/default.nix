@@ -26,6 +26,8 @@
       };
     };
 
+    programs.nix-your-shell.enable = true;
+
     home.packages =
       (with pkgs; [
         btop
