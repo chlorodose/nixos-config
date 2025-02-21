@@ -1,8 +1,14 @@
 {
   config,
+  inputs,
   ...
 }:
 {
+  imports = [
+    inputs.nix-index-database.hmModules.nix-index
+  ];
+  programs.nix-index.enable = true;
+  programs.nix-index-database.comma.enable = false;
   user.gpg.myKeys = [ ./chlorodose_public.asc ];
   programs.git = {
     userEmail = "chlorodose@chlorodose.me";
@@ -13,5 +19,4 @@
     };
   };
   modules.gpg-agent.enable = config.modules.desktop.enable;
-  programs.nix-index.enable = true;
 }
