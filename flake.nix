@@ -16,6 +16,10 @@
       url = "github:nix-community/preservation/main";
     };
 
+    catppuccin = {
+      url = "github:catppuccin/nix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim/main";
       inputs = {

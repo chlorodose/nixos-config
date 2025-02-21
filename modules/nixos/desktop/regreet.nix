@@ -28,8 +28,8 @@
         name = "Papirus";
       };
       cursorTheme = {
-        package = pkgs.papirus-icon-theme;
-        name = "Papirus";
+        package = pkgs.catppuccin-cursors;
+        name = "mochaMauve";
       };
     };
   };

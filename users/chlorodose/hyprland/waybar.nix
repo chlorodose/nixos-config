@@ -60,14 +60,6 @@
         "format" = "⏻";
       };
       style = ''
-        @import "${
-          pkgs.catppuccin.override {
-            accent = "mauve";
-            variant = "mocha";
-            themeList = [ "waybar" ];
-          }
-        }/waybar/mocha.css";
-
         * {
           font-size: 17px;
           min-height: 0;
