@@ -10,9 +10,8 @@
       enable = true;
       settings = {
         general = {
-          disable_loading_bar = true;
+          immediate_render = true;
           hide_cursor = true;
-          no_fade_in = false;
         };
 
         background = [
