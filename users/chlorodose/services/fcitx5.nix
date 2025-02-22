@@ -31,6 +31,7 @@
         [GroupOrder]
         0=Default
       '';
+      "fcitx5/profile".force = true;
       "fcitx5/config".text = ''
         [Hotkey]
         EnumerateWithTriggerKeys=True
