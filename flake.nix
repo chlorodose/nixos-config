@@ -45,11 +45,19 @@
       lib = (import ./lib) inputs.nixpkgs.lib;
       nixosModules.default = import ./modules/nixos;
       homeModules.default = import ./modules/home;
-      templates.rust = {
-        path = templates/rust;
-        description = ''
-          Rust project template.
-        '';
+      templates = {
+        rust = {
+          path = templates/rust;
+          description = ''
+            Rust project template.
+          '';
+        };
+        typescript = {
+          path = templates/typescript;
+          description = ''
+            Typescript project template.
+          '';
+        };
       };
       nixosConfigurations = {
         cl-laptop = inputs.nixpkgs.lib.nixosSystem {
