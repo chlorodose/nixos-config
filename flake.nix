@@ -26,10 +26,7 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs =
