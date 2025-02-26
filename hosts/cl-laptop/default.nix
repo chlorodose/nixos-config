@@ -17,6 +17,7 @@
   modules.remote.enable = false;
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
+  modules.bluetooth.enable = true;
 
   users.users.chlorodose = {
     isNormalUser = true;
