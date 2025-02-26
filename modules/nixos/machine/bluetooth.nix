@@ -5,5 +5,6 @@
     modules.machine.enable = true;
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
+    system.preserve.directories = [ "/var/lib/bluetooth" ];
   };
 }
