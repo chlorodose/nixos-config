@@ -28,7 +28,7 @@
       forward-zone = [
         {
           name = ".";
-          forward-addr = "1.1.1.1";
+          forward-addr = "1.1.1.1@853#1.1.1.1";
           forward-first = true;
         }
       ];
