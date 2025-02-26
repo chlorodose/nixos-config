@@ -18,6 +18,7 @@
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
   modules.bluetooth.enable = true;
+  modules.kdeconnect.enable = true;
 
   users.users.chlorodose = {
     isNormalUser = true;
