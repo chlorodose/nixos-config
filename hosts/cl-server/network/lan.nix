@@ -26,11 +26,10 @@
       PoolSize = 128;
       EmitDNS = true;
       DNS = [
-        "_server_address" # "1.1.1.1"
+        "1.1.1.1"
       ];
       EmitRouter = true;
       EmitTimezone = true;
-      # SendOption = "121:192.168.1.0/24:192.168.0.1";
     };
     dhcpPrefixDelegationConfig = {
       UplinkInterface = "wan";
@@ -42,7 +41,7 @@
       OtherInformation = true;
       EmitDNS = true;
       DNS = [
-        "_link_local" # "2606:4700:4700::1111"
+        "2606:4700:4700::1111"
       ];
     };
     bridgeConfig = {
