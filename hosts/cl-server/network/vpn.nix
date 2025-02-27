@@ -16,6 +16,19 @@
     networkConfig = {
       KeepConfiguration = true;
     };
+    routes = [
+      {
+        Gateway = "0.0.0.0";
+        Table = 1234;
+      }
+    ];
+    routingPolicyRules = [
+      {
+        Family = "both";
+        FirewallMark = 1234;
+        Table = 1234;
+      }
+    ];
   };
   sops.secrets."oc-homelab/cert.pem" = {
     format = "binary";
@@ -30,7 +43,7 @@
     owner = "root";
   };
   networking.openconnect.interfaces.vps-vpnhost = {
-    gateway = "vps-vpnhost.chlorodose.me:8443";
+    gateway = "104.194.91.98:8443";
     user = "homelab";
     extraOptions = {
       servercert = "pin-sha256:3w4Hpfu9MrJsTeGvXeNrAWTGTGNiY/V5xGTwJk1jiLY=";
@@ -49,7 +62,6 @@
     };
     after = [
       "pppd-wan.service"
-      "unbound.service"
     ];
     postStart = "${pkgs.systemd}/bin/networkctl reconfigure vps-vpnhost";
   };
