@@ -37,8 +37,8 @@
         chain divert {
           type filter hook prerouting priority mangle; policy accept;
           ip daddr $EXCLUDES_PROXY_V4 accept
-          iifname lan ip protocol {tcp, udp} tproxy ip to 127.0.0.1:1234 meta mark set 7890 counter accept
-          iifname lan ip6 nexthdr {tcp, udp} tproxy ip6 to [::1]:1234 meta mark set 7890 counter accept
+          iifname { lan, wg } ip protocol {tcp, udp} tproxy ip to 127.0.0.1:1234 meta mark set 7890 counter accept
+          iifname { lan, wg } ip6 nexthdr {tcp, udp} tproxy ip6 to [::1]:1234 meta mark set 7890 counter accept
         }
       '';
     };
