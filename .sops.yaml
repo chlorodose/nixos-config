@@ -16,7 +16,7 @@ creation_rules:
       - *user_chlorodose
       age:
       - *host_cl-server
-  - path_regex: secrets/oc-homelab/*
+  - path_regex: secrets/vpn/*
     key_groups:
     - pgp:
       - *user_chlorodose

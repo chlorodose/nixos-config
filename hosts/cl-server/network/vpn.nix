@@ -30,15 +30,15 @@
       }
     ];
   };
-  sops.secrets."oc-homelab/cert.pem" = {
+  sops.secrets."vpn/cert.pem" = {
     format = "binary";
-    sopsFile = outputs.lib.getSecret "oc-homelab/cert.pem";
+    sopsFile = outputs.lib.getSecret "vpn/cert.pem";
     mode = "400";
     owner = "root";
   };
-  sops.secrets."oc-homelab/key.pem" = {
+  sops.secrets."vpn/key.pem" = {
     format = "binary";
-    sopsFile = outputs.lib.getSecret "oc-homelab/key.pem";
+    sopsFile = outputs.lib.getSecret "vpn/key.pem";
     mode = "400";
     owner = "root";
   };
@@ -52,8 +52,8 @@
       ''}/bin/configure-vps-vpnhost'';
     };
     protocol = "anyconnect";
-    certificate = config.sops.secrets."oc-homelab/cert.pem".path;
-    privateKey = config.sops.secrets."oc-homelab/key.pem".path;
+    certificate = config.sops.secrets."vpn/cert.pem".path;
+    privateKey = config.sops.secrets."vpn/key.pem".path;
   };
   systemd.services."openconnect-vps-vpnhost" = {
     serviceConfig = {
