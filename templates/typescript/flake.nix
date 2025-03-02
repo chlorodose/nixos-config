@@ -1,5 +1,5 @@
 {
-  description = "Example rust package";
+  description = "Example typescript package";
   inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
