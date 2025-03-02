@@ -9,6 +9,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       home-manager
+      kitty.terminfo
     ];
 
     i18n = {
