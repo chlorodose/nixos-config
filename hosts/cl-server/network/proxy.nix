@@ -64,16 +64,23 @@
             action = "hijack-dns";
           }
           {
-            rule_set = "geosite-!cn";
-            outbound = "proxy";
+            rule_set = [
+              "site-direct"
+              "steam-cn"
+            ];
+            outbound = "direct";
           }
           {
-            rule_set = "geosite-cn";
-            outbound = "direct";
+            rule_set = "site-proxy";
+            outbound = "proxy";
           }
           {
             action = "resolve";
             strategy = "prefer_ipv4";
+          }
+          {
+            ip_is_private = true;
+            outbound = "direct";
           }
           {
             rule_set = "geoip-cn";
@@ -89,17 +96,24 @@
             download_detour = "proxy";
           }
           {
-            tag = "geosite-!cn";
+            tag = "site-direct";
             type = "remote";
             format = "binary";
-            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs";
+            url = "https://raw.githubusercontent.com/DDCHlsq/sing-ruleset/ruleset/direct.srs";
             download_detour = "proxy";
           }
           {
-            tag = "geosite-cn";
+            tag = "site-proxy";
             type = "remote";
             format = "binary";
-            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs";
+            url = "https://raw.githubusercontent.com/DDCHlsq/sing-ruleset/ruleset/proxy.srs";
+            download_detour = "proxy";
+          }
+          {
+            tag = "steam-cn";
+            type = "remote";
+            format = "binary";
+            url = "https://raw.githubusercontent.com/DDCHlsq/sing-ruleset/ruleset/steamcn.srs";
             download_detour = "proxy";
           }
         ];
@@ -167,8 +181,17 @@
         ];
         rules = [
           {
-            rule_set = "geosite-!cn";
+            rule_set = [
+              "site-proxy"
+            ];
             server = "proxy-dns";
+          }
+          {
+            rule_set = [
+              "site-direct"
+              "steam-cn"
+            ];
+            server = "direct-dns";
           }
         ];
         final = "direct-dns";
