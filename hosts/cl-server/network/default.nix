@@ -47,8 +47,7 @@
         68
         546
       ];
-      logReversePathDrops = true;
-      logRefusedConnections = true;
+      logRefusedConnections = false;
     };
 
     wireguard.interfaces.wg = {
