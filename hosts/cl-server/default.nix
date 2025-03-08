@@ -18,8 +18,6 @@
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
 
-  services.openssh.settings.PasswordAuthentication = false;
-
   users.users.chlorodose = {
     isNormalUser = true;
     uid = 1000;
