@@ -25,7 +25,7 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        devShell = pkgs.mkShellNoCC {
+        devShell = pkgs.mkShell {
           buildInputs = [
             fenix.packages.${system}.complete.toolchain
           ];
