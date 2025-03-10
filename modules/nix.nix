@@ -22,7 +22,7 @@
       };
       to = {
         type = "path";
-        path = (builtins.toString ../.);
+        path = "${../.}";
       };
     };
     settings = {
