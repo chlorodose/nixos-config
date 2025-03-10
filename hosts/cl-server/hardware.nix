@@ -11,6 +11,8 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
+  boot.kernelParams = [ "nohibernate" ];
+
   fileSystems."/".options = [ "size=16g" ];
   fileSystems."/boot" = {
     label = "BOOT";

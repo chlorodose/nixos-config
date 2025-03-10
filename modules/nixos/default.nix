@@ -21,6 +21,13 @@
     };
 
     systemd.watchdog.runtimeTime = "30s";
+    systemd.sleep.extraConfig = lib.mkDefault ''
+      [Sleep]
+      AllowSuspend=no
+      AllowHibernation=no
+      AllowHybridSleep=no
+      AllowSuspendThenHibernate=no
+    '';
 
     users.mutableUsers = false;
     security.sudo.extraConfig = lib.mkForce ''

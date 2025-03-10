@@ -9,6 +9,7 @@
   imports = outputs.lib.scanPath ./.;
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
   config = lib.mkIf config.modules.desktop.enable {
+    systemd.sleep.extraConfig = "";
     networking.networkmanager.enable = true;
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
     fonts.packages = with pkgs; [
