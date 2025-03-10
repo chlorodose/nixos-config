@@ -158,6 +158,20 @@
           external_controller = "0.0.0.0:9090";
           external_ui = "${pkgs.metacubexd}";
         };
+        v2ray_api = {
+          stats = {
+            enabled = true;
+            inbounds = [
+              "tproxy-in-v4"
+              "tproxy-in-v6"
+              " proxy-in"
+            ];
+            outbounds = [
+              "direct"
+              "proxy"
+            ];
+          };
+        };
       };
       dns = {
         servers = [
