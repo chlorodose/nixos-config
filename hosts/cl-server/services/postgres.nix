@@ -3,6 +3,10 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_17_jit;
+    extensions =
+      ps: with ps; [
+        pg_cron
+      ];
     enableTCPIP = true;
     enableJIT = true;
     dataDir = "/srv/postgresql";
