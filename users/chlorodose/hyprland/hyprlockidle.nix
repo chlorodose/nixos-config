@@ -14,13 +14,12 @@
           hide_cursor = true;
         };
 
-        background = [
-          {
-            path = "screenshot";
-            blur_passes = 3;
-            blur_size = 8;
-          }
-        ];
+        background = {
+          color = "rgba(0,0,0,1)";
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 8;
+        };
 
         label = [
           {
@@ -94,7 +93,11 @@
           }
           {
             timeout = 300;
-            on-timeout = "${pkgs.systemd}/bin/systemctl sleep";
+            on-timeout = "${pkgs.elogind}/bin/loginctl lock-sessionp";
+          }
+          {
+            timeout = 900;
+            on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
           }
         ];
       };
