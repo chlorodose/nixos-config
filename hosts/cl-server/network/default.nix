@@ -18,6 +18,12 @@
     owner = "root";
     group = "systemd-network";
   };
+  sops.secrets."wireguard/preshare/laptop" = {
+    sopsFile = outputs.lib.getSecret "services.yaml";
+    mode = "0440";
+    owner = "root";
+    group = "systemd-network";
+  };
   # Network
   networking = {
     nat = {
@@ -61,6 +67,13 @@
           allowedIPs = [ "192.168.1.2/24" ];
           publicKey = "12+lveD6bhdlprqxP9lxLx0nHpOI575L0ORbBjpUIys=";
           presharedKeyFile = config.sops.secrets."wireguard/preshare/phone".path;
+        }
+        {
+          name = "laptop";
+          persistentKeepalive = 25;
+          allowedIPs = [ "192.168.1.3/24" ];
+          publicKey = "FdE67l/tQ17htGEwPm05ZNllUcob6z34NXyPxfKcgQs=";
+          presharedKeyFile = config.sops.secrets."wireguard/preshare/laptop".path;
         }
       ];
     };
