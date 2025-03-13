@@ -29,7 +29,6 @@ in
     };
 
     firewall = {
-      checkReversePath = false;
       trustedInterfaces = [
         "lan"
         "wg"

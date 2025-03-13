@@ -37,7 +37,10 @@
     networking.useNetworkd = true;
     networking.useDHCP = false;
     networking.nftables.enable = true;
-    networking.firewall.enable = true;
+    networking.firewall = {
+      enable = true;
+      checkReversePath = false;
+    };
     services.resolved = {
       enable = lib.mkDefault true;
       fallbackDns = [
