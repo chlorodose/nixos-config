@@ -3,27 +3,20 @@
   outputs,
   ...
 }:
+let
+  wgSecret = {
+    sopsFile = outputs.lib.getSecret "services.yaml";
+    mode = "0440";
+    owner = "root";
+    group = "systemd-network";
+  };
+in
 {
   imports = outputs.lib.scanPath ./.;
 
-  sops.secrets."wireguard/private" = {
-    sopsFile = outputs.lib.getSecret "services.yaml";
-    mode = "0440";
-    owner = "root";
-    group = "systemd-network";
-  };
-  sops.secrets."wireguard/preshare/phone" = {
-    sopsFile = outputs.lib.getSecret "services.yaml";
-    mode = "0440";
-    owner = "root";
-    group = "systemd-network";
-  };
-  sops.secrets."wireguard/preshare/laptop" = {
-    sopsFile = outputs.lib.getSecret "services.yaml";
-    mode = "0440";
-    owner = "root";
-    group = "systemd-network";
-  };
+  sops.secrets."wireguard/private" = wgSecret;
+  sops.secrets."wireguard/preshare/phone" = wgSecret;
+  sops.secrets."wireguard/preshare/laptop" = wgSecret;
   # Network
   networking = {
     nat = {
@@ -72,6 +65,11 @@
           allowedIPs = [ "192.168.1.3/32" ];
           publicKey = "FdE67l/tQ17htGEwPm05ZNllUcob6z34NXyPxfKcgQs=";
           presharedKeyFile = config.sops.secrets."wireguard/preshare/laptop".path;
+        }
+        {
+          name = "m-phone";
+          allowedIPs = [ "192.168.1.4/32" ];
+          publicKey = "qnu6tNaO+AnYmYERhWuYy3wGcNDK7ItporEerZgYAk4=";
         }
       ];
     };
