@@ -138,6 +138,24 @@
           listen = "0.0.0.0";
           listen_port = 7890;
         }
+        {
+          type = "direct";
+          tag = "dns-udp-in";
+          listen = "192.168.0.1";
+          listen_port = 53;
+          network = "udp";
+          override_address = "1.1.1.1"; # whatever
+          override_port = 53;
+        }
+        {
+          type = "direct";
+          tag = "dns-tcp-in";
+          listen = "192.168.0.1";
+          listen_port = 53;
+          network = "tcp";
+          override_address = "1.1.1.1"; # whatever
+          override_port = 53;
+        }
       ];
       outbounds = [
         {
