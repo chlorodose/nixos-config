@@ -63,15 +63,13 @@
       peers = [
         {
           name = "phone";
-          persistentKeepalive = 25;
-          allowedIPs = [ "192.168.1.2/24" ];
+          allowedIPs = [ "192.168.1.2/32" ];
           publicKey = "12+lveD6bhdlprqxP9lxLx0nHpOI575L0ORbBjpUIys=";
           presharedKeyFile = config.sops.secrets."wireguard/preshare/phone".path;
         }
         {
           name = "laptop";
-          persistentKeepalive = 25;
-          allowedIPs = [ "192.168.1.3/24" ];
+          allowedIPs = [ "192.168.1.3/32" ];
           publicKey = "FdE67l/tQ17htGEwPm05ZNllUcob6z34NXyPxfKcgQs=";
           presharedKeyFile = config.sops.secrets."wireguard/preshare/laptop".path;
         }
