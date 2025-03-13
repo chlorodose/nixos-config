@@ -11,6 +11,7 @@
   config = lib.mkIf config.modules.desktop.enable {
     systemd.sleep.extraConfig = "";
     networking.networkmanager.enable = true;
+    environment.systemPackages = with pkgs; [ wireguard-tools ];
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
     fonts.packages = with pkgs; [
       material-design-icons
