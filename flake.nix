@@ -28,6 +28,9 @@
       url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    grafana-dashboards = {
+      url = "github:blackheaven/grafana-dashboards.nix/master";
+    };
   };
   outputs =
     { self, ... }:

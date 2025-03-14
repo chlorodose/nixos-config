@@ -60,6 +60,22 @@
         "type": "github"
       }
     },
+    "grafana-dashboards": {
+      "locked": {
+        "lastModified": 1695623910,
+        "narHash": "sha256-bUq3cN6o/m4JCwnwC6wg2qXdsTvxKcf1zL3zevywnp4=",
+        "owner": "blackheaven",
+        "repo": "grafana-dashboards.nix",
+        "rev": "f64094eda27a307ddd990e147dc2d5595d0f2801",
+        "type": "github"
+      },
+      "original": {
+        "owner": "blackheaven",
+        "ref": "master",
+        "repo": "grafana-dashboards.nix",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -211,6 +227,7 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
+        "grafana-dashboards": "grafana-dashboards",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
