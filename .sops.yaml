@@ -1,6 +1,6 @@
 keys:
   - &user_chlorodose 676E7ED23DB572106D83619F8727616DB2324794
-  - &host_cl-server age18hwaa8day3379dja06ppr5237l0nmt5r9zhwpm8hx03k06w4kqeq0m6jh2
+  - &host_cl-server age1zs4dcmqa2wxt3wx9f5mc9rekskz2cg39dvfv7jhwtef5uw5mpvgqgeurcl
   - &host_cl-laptop age1fxg8u7kflyzdpntrarq0pgytmxhzzjvdzumx8vqwvp2clszfr32scvwyvd
 creation_rules:
   - path_regex: secrets/default.yaml
