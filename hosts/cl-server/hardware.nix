@@ -31,16 +31,9 @@
     ];
     neededForBoot = false;
   };
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 100;
-    writebackDevice = "/dev/disk/by-label/swap";
-  };
   fileSystems."/nix" = {
-    label = "nix";
-    fsType = "ext4";
-    options = [ "defaults" ];
+    device = "/mnt/nix";
+    options = [ "bind" ];
     neededForBoot = true;
   };
   fileSystems."/mnt" = {
