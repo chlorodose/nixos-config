@@ -45,6 +45,9 @@
         nix-tree
         ripgrep
         fd
+        wireguard-tools
+        smartmontools
+        trashy
       ])
       ++ (
         if config.modules.desktop.enable then
