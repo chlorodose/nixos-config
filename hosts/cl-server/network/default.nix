@@ -70,6 +70,11 @@ in
           allowedIPs = [ "192.168.1.4/32" ];
           publicKey = "qnu6tNaO+AnYmYERhWuYy3wGcNDK7ItporEerZgYAk4=";
         }
+        {
+          name = "f-laptop";
+          allowedIPs = [ "192.168.1.5/32" ];
+          publicKey = "ao71yf/P66Mi0XRLpRcocRFaPekDIpy3ec8F9yNc/kk=";
+        }
       ];
     };
   };
