@@ -14,6 +14,9 @@ in
 {
   imports = outputs.lib.scanPath ./.;
 
+  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
+
   sops.secrets."wireguard/private" = wgSecret;
   sops.secrets."wireguard/preshare/phone" = wgSecret;
   sops.secrets."wireguard/preshare/laptop" = wgSecret;
