@@ -3,7 +3,7 @@
   ...
 }:
 {
-  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+  imports = [ inputs.catppuccin.homeModules.catppuccin ];
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -11,5 +11,6 @@
 
     glamour.enable = false;
     nvim.enable = false;
+    mako.enable = false;
   };
 }

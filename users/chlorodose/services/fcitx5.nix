@@ -7,12 +7,17 @@
 {
   config = lib.mkIf config.modules.desktop.enable {
     systemd.user.services."fcitx5-daemon".Unit.After = [ "graphical-session.target" ];
-    i18n.inputMethod.enabled = "fcitx5";
-    i18n.inputMethod.fcitx5.addons = with pkgs; [
-      fcitx5-gtk
-      fcitx5-chinese-addons
-    ];
-    i18n.inputMethod.fcitx5.waylandFrontend = true;
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5 = {
+        waylandFrontend = true;
+        addons = with pkgs; [
+          fcitx5-gtk
+          fcitx5-chinese-addons
+        ];
+      };
+    };
     xdg.configFile = {
       "fcitx5/profile".text = ''
         [Groups/0]

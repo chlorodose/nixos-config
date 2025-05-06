@@ -19,7 +19,7 @@
       enableExtraSocket = true;
       enableSshSupport = true;
       enableScDaemon = true;
-      pinentryPackage = pkgs.pinentry-all;
+      pinentry.package = pkgs.pinentry-all;
     };
     programs.gpg = {
       enable = true;
