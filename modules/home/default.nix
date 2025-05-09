@@ -31,6 +31,7 @@
 
     home.packages =
       (with pkgs; [
+        comma
         btop
         iotop
         iftop
