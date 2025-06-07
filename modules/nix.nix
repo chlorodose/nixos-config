@@ -33,10 +33,10 @@
         "cgroups"
       ];
       substituters = lib.mkForce [
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store/?priority=35"
+        "https://mirrors.ustc.edu.cn/nix-channels/store/?priority=35"
+        "https://cache.nixos.org/?priority=40"
+        "https://nix-community.cachix.org/?priority=45"
       ];
       trusted-public-keys = lib.mkForce [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
