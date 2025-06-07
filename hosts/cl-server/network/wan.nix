@@ -82,7 +82,7 @@
   };
   sops.secrets."ppp/wan" = {
     sopsFile = outputs.lib.getSecret "services.yaml";
-    mode = "400";
+    mode = "0400";
     owner = "root";
   };
 }

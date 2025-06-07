@@ -33,13 +33,13 @@
   sops.secrets."vpn/cert.pem" = {
     format = "binary";
     sopsFile = outputs.lib.getSecret "vpn/cert.pem";
-    mode = "400";
+    mode = "0400";
     owner = "root";
   };
   sops.secrets."vpn/key.pem" = {
     format = "binary";
     sopsFile = outputs.lib.getSecret "vpn/key.pem";
-    mode = "400";
+    mode = "0400";
     owner = "root";
   };
   networking.openconnect.interfaces.vps-vpnhost = {

@@ -2,7 +2,7 @@
 {
   sops.secrets."ddns/cloudflare" = {
     sopsFile = outputs.lib.getSecret "services.yaml";
-    mode = "400";
+    mode = "0400";
     owner = "root";
   };
   services.ddclient = {
