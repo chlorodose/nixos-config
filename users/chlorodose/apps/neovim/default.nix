@@ -20,6 +20,14 @@
         impureRtp = false;
         wrapRc = true;
         nixpkgs.useGlobalPackages = true;
+        performance.byteCompileLua = {
+          enable = false;
+          configs = true;
+          initLua = true;
+          luaLib = true;
+          nvimRuntime = true;
+          plugins = true;
+        };
       }
       # Pager
       {
