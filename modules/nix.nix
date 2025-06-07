@@ -14,7 +14,7 @@
   nixpkgs.overlays = [
   ];
   nix = {
-    package = pkgs.lix;
+    package = pkgs.nix;
     registry.system = {
       from = {
         id = "system";
