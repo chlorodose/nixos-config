@@ -10,4 +10,7 @@ lib: {
         ) (builtins.readDir path)
       )
     );
+  listRoots = outputs:
+    (lib.mapAttrsToList (name: value: value.config.system.build.toplevel) outputs.nixosConfigurations) ++
+    (lib.mapAttrsToList (name: value: value.activationPackage) outputs.homeConfigurations);
 }
