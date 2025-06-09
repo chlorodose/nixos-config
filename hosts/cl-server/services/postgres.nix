@@ -14,6 +14,8 @@
       local all all   peer
     '';
     settings = {
+      shared_preload_libraries = ["pg_cron"];
+
       log_connections = true;
       log_statement = "all";
       logging_collector = true;
@@ -52,6 +54,10 @@
       max_parallel_workers = 72;
       max_parallel_workers_per_gather = 4;
       max_parallel_maintenance_workers = 32;
+
+      # Extensions
+      "cron.database_name" = "postgres";
+      "cron.use_background_workers" = true;
     };
   };
 }
