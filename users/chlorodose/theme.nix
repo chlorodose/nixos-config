@@ -12,5 +12,6 @@
     glamour.enable = false;
     nvim.enable = false;
     mako.enable = false;
+    vscode.enable = false;
   };
 }
