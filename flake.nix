@@ -4,12 +4,20 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils = {
       url = "github:numtide/flake-utils/main";
+    };
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -21,10 +29,6 @@
 
     catppuccin = {
       url = "github:catppuccin/nix/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
