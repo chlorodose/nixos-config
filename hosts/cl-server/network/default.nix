@@ -20,6 +20,21 @@ in
   sops.secrets."wireguard/private" = wgSecret;
   sops.secrets."wireguard/preshare/phone" = wgSecret;
   sops.secrets."wireguard/preshare/laptop" = wgSecret;
+
+  services.avahi = {
+    enable = true;
+    openFirewall = false;
+    allowInterfaces = config.networking.firewall.trustedInterfaces;
+    publish = {
+      enable = true;
+      hinfo = true;
+      domain = true;
+      addresses = true;
+      userServices = true;
+      workstation = true;
+    };
+  };
+
   # Network
   networking = {
     nat = {
