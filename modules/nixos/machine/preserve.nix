@@ -30,6 +30,15 @@
       ];
       neededForBoot = true;
     };
+    fileSystems."/tmp" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "X-mount.mode=777"
+      ];
+      neededForBoot = true;
+    };
     system.preserve.persistentStoragePath = lib.mkDefault "/mnt";
     system.preserve = {
       commonMountOptions = [
