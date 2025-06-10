@@ -210,8 +210,18 @@
             address = "223.5.5.5";
             detour = "direct";
           }
+          {
+            tag = "mdns";
+            address = "local";
+          }
         ];
         rules = [
+          {
+            domain_suffix = [
+              ".local"
+            ];
+            server = "mdns";
+          }
           {
             rule_set = [
               "site-proxy"
