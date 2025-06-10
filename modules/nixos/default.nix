@@ -40,6 +40,9 @@
     networking.firewall = {
       enable = true;
       checkReversePath = false;
+      allowedUDPPorts = [
+        5353
+      ];
     };
     services.resolved = {
       enable = lib.mkDefault true;
