@@ -43,6 +43,7 @@
     };
     services.resolved = {
       enable = lib.mkDefault true;
+      llmnr = "resolve";
       fallbackDns = [
         "1.1.1.1"
         "2606:4700:4700::1111"
