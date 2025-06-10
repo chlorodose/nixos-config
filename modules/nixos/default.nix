@@ -35,6 +35,10 @@
       Defaults lecture = never
     '';
 
+    security.pki.certificateFiles = [
+      ./ca-cert.pem
+    ];
+
     networking.useNetworkd = true;
     networking.useDHCP = false;
     networking.nftables.enable = true;
