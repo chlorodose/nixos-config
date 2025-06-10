@@ -12,24 +12,18 @@
     createHome = false;
     home = "/var/empty";
   };
-  sops.secrets."samba" = {
-    sopsFile = outputs.lib.getSecret "services.yaml";
+  sops.secrets."samba-password" = {
+    format = "binary";
+    sopsFile = outputs.lib.getSecret "samba/smbpasswd";
     mode = "0400";
     owner = "root";
-  };
-  systemd.services."samba-smbd" = {
-    preStart = ''
-      ${pkgs.coreutils}/bin/mkdir -p /var/lib/samba/private &&
-      ${pkgs.samba}/bin/pdbedit -i smbpasswd:${
-        config.sops.secrets."samba".path
-      } -e tdbsam:/var/lib/samba/private/passdb.tdb
-    '';
   };
   services.samba = {
     enable = true;
     settings = {
       global = {
         "passwd program" = "";
+        "passdb backend" = "smbpasswd:${config.sops.secrets."samba-password".path}";
       };
       homes = {
         path = "/srv/share/%S";
