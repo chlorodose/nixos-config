@@ -51,15 +51,12 @@
         trashy
       ])
       ++ (
-        if config.modules.desktop.enable then
-          (with pkgs; [
-            nixd
-            nixfmt-rfc-style
-            brightnessctl
-            playerctl
-          ])
-        else
-          [ ]
+        lib.optionals config.modules.desktop.enable (with pkgs; [
+          nixd
+          nixfmt-rfc-style
+          brightnessctl
+          playerctl
+        ])
       );
   };
 }
