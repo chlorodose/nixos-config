@@ -22,6 +22,12 @@ creation_rules:
       - *user_chlorodose
       age:
       - *host_cl-server
+  - path_regex: secrets/website/*
+    key_groups:
+    - pgp:
+      - *user_chlorodose
+      age:
+      - *host_cl-server
   - path_regex: secrets/samba/*
     key_groups:
     - pgp:

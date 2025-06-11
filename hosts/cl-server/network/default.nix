@@ -63,6 +63,10 @@ in
         68
         546
       ];
+      interfaces.vps-vpnhost.allowedTCPPorts = [
+        80
+        443
+      ];
       logRefusedConnections = false;
     };
 
