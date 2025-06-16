@@ -10,7 +10,7 @@
       enable = true;
       package = pkgs.chromium;
       extensions = [
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin Lite
         { id = "bpoadfkcbjbfhfodiogcnhhhpibjhbnh"; } # 沉浸式翻译
         { id = "doojmbjmlfjjnbmnoijecmcbfeoakpjm"; } # No Script
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
