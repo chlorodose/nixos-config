@@ -1,5 +1,7 @@
 {
   pkgs,
+  lib,
+  config,
   ...
 }:
 {
@@ -214,8 +216,16 @@
             tag = "mdns";
             address = "local";
           }
+          {
+            tag = "hosts";
+            address = "local";
+          }
         ];
         rules = [
+          {
+            domain = lib.flatten (builtins.attrValues config.networking.hosts);
+            server = "hosts";
+          }
           {
             domain_suffix = [
               ".local"
