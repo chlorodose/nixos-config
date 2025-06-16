@@ -48,7 +48,6 @@
     };
     security.rtkit.enable = true;
     security.polkit.enable = true;
-    services.flatpak.enable = true;
     environment.pathsToLink = [
       "/share/xdg-desktop-portal"
       "/share/applications"
