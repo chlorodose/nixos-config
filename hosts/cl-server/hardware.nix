@@ -19,7 +19,7 @@
     fsType = "vfat";
     options = [
       "rw"
-      "sync"
+      "async"
       "nosuid"
       "nodev"
       "noexec"
