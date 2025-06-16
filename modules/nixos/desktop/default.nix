@@ -43,9 +43,8 @@
     };
     services.pipewire = {
       enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
       wireplumber.enable = true;
+      audio.enable = true;
     };
     security.rtkit.enable = true;
     security.polkit.enable = true;
