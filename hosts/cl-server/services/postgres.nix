@@ -6,6 +6,7 @@
     extensions =
       ps: with ps; [
         pg_cron
+        timescaledb
       ];
     enableTCPIP = true;
     enableJIT = true;
@@ -14,7 +15,10 @@
       local all all   peer
     '';
     settings = {
-      shared_preload_libraries = ["pg_cron"];
+      shared_preload_libraries = [
+        "pg_cron"
+        "timescaledb"
+      ];
 
       log_connections = true;
       log_statement = "all";
@@ -58,6 +62,12 @@
       # Extensions
       "cron.database_name" = "postgres";
       "cron.use_background_workers" = true;
+      "timescaledb.enable_chunkwise_aggregation" = true;
+      "timescaledb.vectorized_aggregation" = true;
+      "timescaledb.enable_merge_on_cagg_refresh" = true;
+      "timescaledb.max_background_workers" = 72;
+      "timescaledb.license" = "timescale";
+      "timescaledb.telemetry_level" = "off";
     };
   };
 }

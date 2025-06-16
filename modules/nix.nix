@@ -9,6 +9,7 @@
       pkg:
       builtins.elem (lib.getName pkg) [
         "vscode"
+        "timescaledb"
       ];
   };
   nixpkgs.overlays = [
