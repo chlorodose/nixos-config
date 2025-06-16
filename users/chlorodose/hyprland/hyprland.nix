@@ -9,7 +9,7 @@
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # for UWSM
-      xwayland.enable = true;
+      xwayland.enable = false;
       settings =
         let
           mod = "SUPER";
