@@ -5,56 +5,63 @@
   ...
 }:
 {
-  options.services.ups.enable = lib.mkEnableOption "ups service";
+  power.ups = {
+    enable = true;
+    mode = "standalone";
+    maxStartDelay = 30;
 
-  config = lib.mkIf config.services.ups.enable {
-    power.ups = {
+    upsd = {
       enable = true;
-      mode = "standalone";
-      ups."ups" = {
-        driver = "nutdrv_qx";
-        description = "ups";
-        port = "auto";
-        summary = ''
-          vendorid = "0665"
-          productid = "5161"
-        '';
-      };
+      listen = [
+        {
+          address = "127.0.0.1";
+          port = 3493;
+        }
+      ];
+    };
 
-      users."ups" = {
-        upsmon = "primary";
-        instcmds = [ "ALL" ];
-        actions = [ "SET" ];
-        passwordFile = "/dev/null";
-      };
+    ups."ups" = {
+      description = "Main UPS";
+      driver = "nutdrv_qx";
+      port = "auto";
+      summary = ''
+        vendorid = "0665"
+        productid = "5161"
+      '';
+    };
 
-      upsmon.monitor.ups = {
-        user = "ups";
-        passwordFile = "/dev/null";
-        system = "ups@localhost";
-      };
-      upsmon.settings = {
-        DEADTIME = 5;
-        NOCOMMWARNTIME = 30;
-        NOTIFYFLAG = [
-          [
-            "ONLINE"
-            "SYSLOG"
-          ]
-          [
-            "ONBATT"
-            "SYSLOG+WALL+EXEC"
-          ]
-          [
-            "LOWBATT"
-            "SYSLOG+WALL+EXEC"
-          ]
-        ];
-        POLLFREQ = 2;
-        POLLFREQALERT = 1;
-        RUN_AS_USER = "root";
-        SHUTDOWNCMD = "${pkgs.systemd}/bin/systemctl poweroff";
-      };
+    users."observer" = {
+      upsmon = "secondary";
+      passwordFile = "/dev/null";
+    };
+
+    upsmon.monitor.ups = {
+      user = "observer";
+      passwordFile = "/dev/null";
+      system = "ups@127.0.0.1:3493";
+    };
+
+    upsmon.settings = {
+      DEADTIME = 5;
+      NOCOMMWARNTIME = 30;
+      NOTIFYFLAG = [
+        [
+          "ONLINE"
+          "SYSLOG"
+        ]
+        [
+          "ONBATT"
+          "SYSLOG+WALL"
+        ]
+        [
+          "LOWBATT"
+          "SYSLOG+WALL"
+        ]
+      ];
+      POLLFREQ = 2;
+      POLLFREQALERT = 1;
+      SHUTDOWNCMD = "${pkgs.systemd}/bin/systemctl poweroff";
     };
   };
+  systemd.services.upsmon.after = ["upsd.service"];
 }
