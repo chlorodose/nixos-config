@@ -31,6 +31,14 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKF7rjnMuwq0bB/G4dXVSZHegO06qKm4BSBREUHml7Dp chlorodose <chlorodose@chlorodose.me>"
     ];
   };
+  nix.sshServe = {
+    enable = true;
+    keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRpuuX5ge+p2FTsozYFJURT0PLV+hFURV2SkBfKLa56 nix-ssh@cl-server"
+    ];
+    trusted = true;
+    write = true;
+  };
   sops.secrets."user-passwords/chlorodose" = {
     neededForUsers = true;
   };
