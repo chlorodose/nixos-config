@@ -61,7 +61,7 @@
       NotifyAccess = "all";
     };
     after = [
-      "pppd-wan.service"
+      config.systemd.services."pppd-wan".name
     ];
     postStart = "${pkgs.systemd}/bin/networkctl reconfigure vps-vpnhost";
   };
