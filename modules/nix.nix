@@ -11,6 +11,8 @@
         "vscode"
         "timescaledb"
         "nvidia-x11"
+        "nvidia-persistenced"
+        "nvidia-settings"
       ];
   };
   nixpkgs.overlays = [

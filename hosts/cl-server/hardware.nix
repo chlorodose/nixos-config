@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -10,6 +10,16 @@
   boot.kernelModules = [ "kvm-intel" ];
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    nvidiaSettings = true;
+    nvidiaPersistenced = true;
+    modesetting.enable = true;
+    open = true;
+  };
 
   boot.kernelParams = [ "nohibernate" ];
 
