@@ -57,6 +57,7 @@
       sandbox-fallback = false;
       sync-before-registering = true;
       use-cgroups = true;
+      download-buffer-size = 536870912;
     };
   };
 }
