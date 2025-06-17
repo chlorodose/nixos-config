@@ -9,6 +9,11 @@
       serve_from_sub_path = true;
       root_url = "https://cl-server.local/grafana";
     };
+    settings."auth.anonymous" = {
+      enabled = true;
+      org_name = "Main Org.";
+      org_role = "Viewer";
+    };
     settings.database = {
       type = "postgres";
       name = "grafana";
