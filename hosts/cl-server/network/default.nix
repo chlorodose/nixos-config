@@ -14,6 +14,8 @@ in
 {
   imports = outputs.lib.scanPath ./.;
 
+  systemd.slices.system-network = { };
+
   boot.kernelModules = [ "tcp_bbr" ];
   boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
 
@@ -34,6 +36,7 @@ in
       workstation = true;
     };
   };
+  systemd.services.avahi-daemon.serviceConfig.Slice = config.systemd.slices.system-network.name;
 
   # Network
   networking = {

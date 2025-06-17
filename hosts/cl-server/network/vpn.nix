@@ -59,10 +59,12 @@
     serviceConfig = {
       Type = lib.mkForce "notify";
       NotifyAccess = "all";
+      Slice = config.systemd.slices.system-network.name;
     };
     after = [
       config.systemd.services."pppd-wan".name
     ];
     postStart = "${pkgs.systemd}/bin/networkctl reconfigure vps-vpnhost";
   };
+  
 }

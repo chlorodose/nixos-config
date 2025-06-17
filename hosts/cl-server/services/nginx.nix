@@ -21,6 +21,7 @@
     group = "nginx";
   };
 
+  systemd.slices.system-web = { };
   services.nginx =
     let
       configs = {
@@ -114,7 +115,7 @@
     {
       enable = true;
 
-      additionalModules = with pkgs.nginxModules; [];
+      additionalModules = with pkgs.nginxModules; [ ];
 
       httpConfig = ''
         log_format user_default '[$time_local] |$host| ($remote_user) $remote_addr -> ($request_length) "$request" -> ($bytes_sent) $status | with "$http_user_agent" from "$http_referer" as $http_cf_ray';
@@ -122,7 +123,7 @@
 
         server {
           listen 0.0.0.0:443 ssl;
-		      listen [::0]:443 ssl;
+        	listen [::0]:443 ssl;
 
           ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
           ssl_certificate ${./server-cert-cloudflare.pem};
@@ -136,7 +137,7 @@
 
         server {
           listen 0.0.0.0:443 ssl;
-		      listen [::0]:443 ssl;
+        	listen [::0]:443 ssl;
 
           ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
           ssl_certificate ${./server-cert.pem};
@@ -169,13 +170,14 @@
                 ${builtins.toString (
                   lib.flip lib.mapAttrsToList upstream.servers (
                     name: server: ''
-                      server ${name} ${lib.concatStringsSep " " (lib.mapAttrsToList (
-                        key: value:
-                          if builtins.isBool value then 
-                            lib.optionalString value key 
-                          else 
-                            "${key}=${toString value}"
-                        ) server)};
+                      server ${name} ${
+                lib.concatStringsSep " " (
+                  lib.mapAttrsToList (
+                    key: value:
+                    if builtins.isBool value then lib.optionalString value key else "${key}=${toString value}"
+                  ) server
+                )
+                      };
                     ''
                   )
                 )}
@@ -185,7 +187,9 @@
           )
         )}
 
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (_: value: "include ${value};") (lib.mapAttrs pkgs.writeText configs))}
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (_: value: "include ${value};") (lib.mapAttrs pkgs.writeText configs)
+        )}
       '';
 
       appendConfig = ''
@@ -198,4 +202,17 @@
         multi_accept on;
       '';
     };
+
+  systemd.services = lib.listToAttrs (
+    lib.map
+      (value: {
+        name = value;
+        value = {
+          serviceConfig.Slice = config.systemd.slices.system-web.name;
+        };
+      })
+      [
+        "nginx"
+      ]
+  );
 }

@@ -2,9 +2,13 @@
   config,
   pkgs,
   outputs,
+  lib,
   ...
 }:
 {
+  systemd.slices.system-fileshare = { };
+  systemd.slices.system-fileshare-samba = { };
+
   users.users.chlorodose = { };
   users.users."250991817" = {
     isNormalUser = true;
@@ -32,4 +36,18 @@
       };
     };
   };
+  systemd.services = lib.listToAttrs (
+    lib.map
+      (value: {
+        name = value;
+        value = {
+          serviceConfig.Slice = lib.mkForce config.systemd.slices.system-fileshare-samba.name;
+        };
+      })
+      [
+        "samba-nmb"
+        "samba-smbd"
+        "samba-winbindd"
+      ]
+  );
 }

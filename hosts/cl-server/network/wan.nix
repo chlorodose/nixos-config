@@ -76,6 +76,7 @@
     after = [ "sys-subsystem-net-devices-enp6s0.device" ];
     serviceConfig = {
       Type = "notify";
+      Slice = config.systemd.slices.system-network.name;
     };
     preStart = "${pkgs.iproute2}/bin/ip link set enp6s0 up";
     postStart = "${pkgs.systemd}/bin/networkctl reconfigure wan";

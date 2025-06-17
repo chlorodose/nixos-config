@@ -1,5 +1,11 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
+  systemd.slices.system-database = { };
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_17_jit;
@@ -87,4 +93,16 @@
       "timescaledb.telemetry_level" = "off";
     };
   };
+  systemd.services = lib.listToAttrs (
+    lib.map
+      (value: {
+        name = value;
+        value = {
+          serviceConfig.Slice = config.systemd.slices.system-database.name;
+        };
+      })
+      [
+        "postgresql"
+      ]
+  );
 }

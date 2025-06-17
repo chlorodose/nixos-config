@@ -7,6 +7,7 @@
 }:
 {
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 0;
+  systemd.slices.system-observability = { };
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://cl-server.local/prometheus/";
@@ -266,4 +267,25 @@
         { };
     };
   };
+  systemd.services = lib.listToAttrs (
+    lib.map
+      (value: {
+        name = value;
+        value = {
+          serviceConfig.Slice = config.systemd.slices.system-observability.name;
+        };
+      })
+      [
+        "prometheus"
+        "prometheus-wireguard-exporter"
+        "prometheus-nginx-exporter"
+        "prometheus-node-exporter"
+        "prometheus-nut-exporter"
+        "prometheus-nvidia-gpu-exporter"
+        "prometheus-postgres-exporter"
+        "prometheus-smartctl-exporter"
+        "prometheus-systemd-exporter"
+        "prometheus-v2ray-exporter"
+      ]
+  );
 }

@@ -247,4 +247,5 @@
       };
     };
   };
+  systemd.services.sing-box.serviceConfig.Slice = config.systemd.slices.system-network.name;
 }
