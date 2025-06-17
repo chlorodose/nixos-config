@@ -151,6 +151,9 @@
           location /prometheus {
             proxy_pass http://prometheus;
           }
+          location /grafana {
+            proxy_pass http://grafana;
+          }
         }
 
         server {
