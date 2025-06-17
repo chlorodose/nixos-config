@@ -23,7 +23,6 @@
 
   services.nginx =
     let
-      hosts = ["www.chlorodose.me" "cl-server.local"];
       configs = {
         general = ''
           sendfile on;
@@ -91,33 +90,12 @@
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
         '';
-        vars = ''
-          geo $_ssl_cert {
-            default         ${./server-cert.pem};
-            192.168.100.1   ${./server-cert-cloudflare.pem};
-          }
-          geo $is_remote {
-            default          1;
-            127.0.0.1/32     0;
-            ::1/128          0;
-            192.168.0.0/24   0;
-            192.168.1.0/24   0;
-          }
-          map $request_method $is_write {
-            default 1;
-            HEAD    0;
-            GET     0;
-          }
-          map "$is_remote$is_write" $remote_write_auth {
-            default off;
-            "11"    "on";
-          }
-        '';
         rewrites = ''
           server {
             listen 0.0.0.0:80;
             listen [::0]:80;
-            server_name ${lib.concatStringsSep " " hosts};
+            server_name www.chlorodose.me;
+            server_name cl-server.local;
             location / {
               return 301 https://$host$request_uri;
             }
@@ -147,12 +125,30 @@
 		      listen [::0]:443 ssl;
 
           ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
-          ssl_certificate $_ssl_cert;
+          ssl_certificate ${./server-cert-cloudflare.pem};
 
-          server_name ${lib.concatStringsSep " " hosts};
+          server_name www.chlorodose.me;
 
           location = /robots.txt {
             alias ${pkgs.writeText "robots-txt" robots};
+          }
+        }
+
+        server {
+          listen 0.0.0.0:443 ssl;
+		      listen [::0]:443 ssl;
+
+          ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
+          ssl_certificate ${./server-cert.pem};
+
+          server_name cl-server.local;
+          
+          if ($realip_remote_addr = "192.168.100.1") {
+            return 403;
+          }
+
+          location /prometheus {
+            proxy_pass http://prometheus;
           }
         }
 

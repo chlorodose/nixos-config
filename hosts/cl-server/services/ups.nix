@@ -34,6 +34,10 @@
       upsmon = "secondary";
       passwordFile = "/dev/null";
     };
+    users."exporter" = {
+      upsmon = "secondary";
+      passwordFile = builtins.toString (pkgs.writeText "no-password" "no-password");
+    };
 
     upsmon.monitor.ups = {
       user = "observer";

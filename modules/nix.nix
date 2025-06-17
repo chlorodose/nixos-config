@@ -10,6 +10,7 @@
       builtins.elem (lib.getName pkg) [
         "vscode"
         "timescaledb"
+        "nvidia-x11"
       ];
   };
   nixpkgs.overlays = [

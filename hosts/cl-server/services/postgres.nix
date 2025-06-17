@@ -14,6 +14,23 @@
     authentication = lib.mkForce ''
       local all all   peer
     '';
+    ensureUsers = [
+      {
+        name = "root";
+        ensureClauses = {
+          login = true;
+          superuser = true;
+          replication = true;
+          createrole = true;
+          createdb = true;
+          bypassrls = true;
+        };
+      }
+      {
+        name = "postgres-exporter";
+        ensureClauses.login = true;
+      }
+    ];
     settings = {
       shared_preload_libraries = [
         "pg_cron"

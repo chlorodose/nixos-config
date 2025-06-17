@@ -47,6 +47,9 @@
   };
   services.sing-box = {
     enable = true;
+    package = pkgs.sing-box.overrideAttrs (final: prev: {
+      tags = prev.tags ++ ["with_grpc" "with_v2ray_api"];
+    });
     settings = {
       log = {
         level = "warn";
@@ -179,17 +182,11 @@
           external_ui = "${pkgs.metacubexd}";
         };
         v2ray_api = {
+          listen = "127.0.0.1:9091";
           stats = {
             enabled = true;
-            inbounds = [
-              "tproxy-in-v4"
-              "tproxy-in-v6"
-              " proxy-in"
-            ];
-            outbounds = [
-              "direct"
-              "proxy"
-            ];
+            inbounds = lib.map (value: value.tag) config.services.sing-box.settings.inbounds;
+            outbounds = lib.map (value: value.tag) config.services.sing-box.settings.outbounds;
           };
         };
       };
