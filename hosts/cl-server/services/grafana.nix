@@ -2,6 +2,7 @@
 {
   services.grafana = {
     enable = true;
+    declarativePlugins = null;
     settings.server = {
       protocol = "http";
       http_addr = "127.0.0.1";
@@ -33,9 +34,13 @@
       enable = true;
       datasources.settings.datasources = [
         {
-          name = "prometheus";
+          name = "Prometheus";
           type = "prometheus";
           uid = "prometheus";
+          orgId = 1;
+          isDefault = true;
+          editable = false;
+          access = "proxy";
           url = "http://${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}/prometheus";
           jsonData = {
             manageAlerts = true;
