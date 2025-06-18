@@ -10,7 +10,7 @@
   systemd.slices.system-observability = { };
   services.prometheus = {
     enable = true;
-    webExternalUrl = "https://cl-server.local/prometheus/";
+    webExternalUrl = "https://internal.chlorodose.me/prometheus/";
     listenAddress = "127.0.0.1";
     port = 9099;
     retentionTime = "30d";

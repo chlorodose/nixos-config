@@ -96,7 +96,7 @@
             listen 0.0.0.0:80;
             listen [::0]:80;
             server_name www.chlorodose.me;
-            server_name cl-server.local;
+            server_name internal.chlorodose.me;
             location / {
               return 301 https://$host$request_uri;
             }
@@ -142,7 +142,7 @@
           ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
           ssl_certificate ${./server-cert.pem};
 
-          server_name cl-server.local;
+          server_name internal.chlorodose.me;
           
           if ($realip_remote_addr = "192.168.100.1") {
             return 403;
@@ -205,7 +205,7 @@
         multi_accept on;
       '';
     };
-
+  networking.hosts."192.168.0.1" = ["internal.chlorodose.me"];
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {

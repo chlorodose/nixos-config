@@ -7,7 +7,7 @@
       http_addr = "127.0.0.1";
       http_port = 3123;
       serve_from_sub_path = true;
-      root_url = "https://cl-server.local/grafana";
+      root_url = "https://internal.chlorodose.me/grafana";
     };
     settings."auth.anonymous" = {
       enabled = true;

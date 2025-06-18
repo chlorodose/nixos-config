@@ -23,23 +23,10 @@ in
   sops.secrets."wireguard/preshare/phone" = wgSecret;
   sops.secrets."wireguard/preshare/laptop" = wgSecret;
 
-  services.avahi = {
-    enable = true;
-    openFirewall = false;
-    allowInterfaces = config.networking.firewall.trustedInterfaces;
-    publish = {
-      enable = true;
-      hinfo = true;
-      domain = true;
-      addresses = true;
-      userServices = true;
-      workstation = true;
-    };
-  };
-  systemd.services.avahi-daemon.serviceConfig.Slice = config.systemd.slices.system-network.name;
-
   # Network
   networking = {
+    hosts."192.168.0.1" = ["internal.chlorodose.me"];
+
     nat = {
       enable = true;
       internalInterfaces = [
