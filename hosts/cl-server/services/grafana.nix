@@ -43,6 +43,20 @@
           };
         }
       ];
+      dashboards.settings.providers = [
+        {
+          name = "default";
+          orgId = 1;
+          type = "file";
+          disableDeletion = false;
+          allowUiUpdates = true;
+          updateIntervalSeconds = 15;
+          options = {
+            path = "/srv/grafana";
+            foldersFromFilesStructure = true;
+          };
+        }
+      ];
     };
   };
   services.nginx.upstreams.grafana = {
