@@ -45,7 +45,7 @@
       ];
 
       log_connections = true;
-      log_statement = "all";
+      log_statement = "ddl";
       logging_collector = true;
       log_disconnections = true;
 
