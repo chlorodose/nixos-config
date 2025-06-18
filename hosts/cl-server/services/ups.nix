@@ -67,5 +67,6 @@
       SHUTDOWNCMD = "${pkgs.systemd}/bin/systemctl poweroff";
     };
   };
-  systemd.services.upsmon.after = [config.systemd.services.upsd.name];
+  systemd.services.upsd.after = lib.mkForce [];
+  systemd.services.upsmon.after = lib.mkForce [config.systemd.services.upsd.name];
 }
