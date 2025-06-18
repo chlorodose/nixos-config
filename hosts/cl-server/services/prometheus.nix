@@ -187,7 +187,7 @@
       }
       {
         job_name = "nut";
-        scrape_interval = "10s";
+        scrape_interval = "2s";
         metrics_path = "/ups_metrics";
         static_configs = [
           {
