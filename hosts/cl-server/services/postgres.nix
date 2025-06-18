@@ -41,6 +41,7 @@
       shared_preload_libraries = [
         "pg_cron"
         "timescaledb"
+        "pg_stat_statements"
       ];
 
       log_connections = true;
@@ -54,10 +55,10 @@
       max_connections = 1024;
       superuser_reserved_connections = 8;
 
-      shared_buffers = "32GB";
-      effective_cache_size = "96GB";
+      shared_buffers = "64GB";
+      effective_cache_size = "128GB";
       max_prepared_transactions = 1024;
-      work_mem = "32MB";
+      work_mem = "128MB";
       maintenance_work_mem = "4GB";
       logical_decoding_work_mem = "4GB";
 
@@ -91,6 +92,8 @@
       "timescaledb.max_background_workers" = 72;
       "timescaledb.license" = "timescale";
       "timescaledb.telemetry_level" = "off";
+      "pg_stat_statements.max" = 4096;
+      "pg_stat_statements.track" = "all";
     };
   };
   systemd.services = lib.listToAttrs (
