@@ -30,43 +30,59 @@
       '';
     };
 
-    users."observer" = {
-      upsmon = "secondary";
-      passwordFile = "/dev/null";
+    users."root" = {
+      upsmon = "primary";
+      passwordFile = "/etc/machine-id";
+      instcmds = [ "ALL" ];
+      actions = [
+        "SET"
+        "FSD"
+      ];
     };
     users."exporter" = {
       upsmon = "secondary";
-      passwordFile = builtins.toString (pkgs.writeText "no-password" "no-password");
+      passwordFile = "/etc/machine-id";
     };
 
     upsmon.monitor.ups = {
-      user = "observer";
-      passwordFile = "/dev/null";
+      user = "root";
+      passwordFile = "/etc/machine-id";
       system = "ups@127.0.0.1:3493";
     };
 
-    upsmon.settings = {
-      DEADTIME = 5;
-      NOCOMMWARNTIME = 30;
-      NOTIFYFLAG = [
-        [
-          "ONLINE"
-          "SYSLOG"
-        ]
-        [
-          "ONBATT"
-          "SYSLOG+WALL"
-        ]
-        [
-          "LOWBATT"
-          "SYSLOG+WALL"
-        ]
-      ];
-      POLLFREQ = 2;
-      POLLFREQALERT = 1;
-      SHUTDOWNCMD = "${pkgs.systemd}/bin/systemctl poweroff";
+    upsmon = {
+      user = "root";
+      group = "root";
+      settings = {
+        DEADTIME = 5;
+        NOCOMMWARNTIME = 30;
+        NOTIFYFLAG = [
+          [
+            "ONLINE"
+            "SYSLOG"
+          ]
+          [
+            "ONBATT"
+            "SYSLOG+WALL"
+          ]
+          [
+            "LOWBATT"
+            "SYSLOG+WALL"
+          ]
+        ];
+        POLLFREQ = 2;
+        POLLFREQALERT = 1;
+        SHUTDOWNCMD = "${pkgs.systemd}/bin/systemctl poweroff";
+        RUN_AS_USER = "root";
+      };
     };
   };
-  systemd.services.upsd.after = lib.mkForce [];
-  systemd.services.upsmon.after = lib.mkForce [config.systemd.services.upsd.name];
+  systemd.services.upsd = {
+    serviceConfig.NotifyAccess = "all";
+    after = lib.mkForce [ ];
+  };
+  systemd.services.upsmon = {
+    serviceConfig.NotifyAccess = "all";
+    after = lib.mkForce [ config.systemd.services.upsd.name ];
+  };
 }

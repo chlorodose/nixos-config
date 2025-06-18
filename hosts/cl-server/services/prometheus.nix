@@ -79,7 +79,7 @@
         listenAddress = "127.0.0.1";
         port = 9107;
         nutUser = "observer";
-        passwordPath = pkgs.writeText "no-password" "no-password";
+        passwordPath = "/etc/machine-id";
       };
       nvidia-gpu = {
         enable = true;
