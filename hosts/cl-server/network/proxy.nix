@@ -22,6 +22,11 @@
         Type = "local";
         Table = 7890;
       }
+      {
+        Gateway = "::";
+        Type = "local";
+        Table = 7890;
+      }
     ];
     routingPolicyRules = [
       {
@@ -36,9 +41,11 @@
       family = "inet";
       content = ''
         define EXCLUDES_PROXY_V4 = { 127.0.0.0/8, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 255.255.255.255/32 };
+        define EXCLUDES_PROXY_V6 = { fe80::/10, fc00::/7, ::1 };
         chain divert {
           type filter hook prerouting priority mangle; policy accept;
           ip daddr $EXCLUDES_PROXY_V4 accept
+          ip6 daddr $EXCLUDES_PROXY_V6 accept
           iifname { lan, wg } ip protocol {tcp, udp} tproxy ip to 127.0.0.1:1234 meta mark set 7890 counter accept
           iifname { lan, wg } ip6 nexthdr {tcp, udp} tproxy ip6 to [::1]:1234 meta mark set 7890 counter accept
         }
@@ -57,6 +64,11 @@
       };
       route = {
         rules = [
+          {
+            port = [53];
+            ip_cidr = ["127.0.0.1"];
+            action = "hijack-dns";
+          }
           {
             ip_is_private = true;
             outbound = "direct";
@@ -149,7 +161,7 @@
           listen = "192.168.0.1";
           listen_port = 53;
           network = "udp";
-          override_address = "1.1.1.1"; # whatever
+          override_address = "127.0.0.1";
           override_port = 53;
         }
         {
@@ -158,7 +170,7 @@
           listen = "192.168.0.1";
           listen_port = 53;
           network = "tcp";
-          override_address = "1.1.1.1"; # whatever
+          override_address = "127.0.0.1";
           override_port = 53;
         }
       ];
@@ -191,6 +203,9 @@
         };
       };
       dns = {
+        strategy = "prefer_ipv4";
+        reverse_mapping = true;
+        cache_capacity = 32768;
         servers = [
           {
             tag = "proxy-dns";

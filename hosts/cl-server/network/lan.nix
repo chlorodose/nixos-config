@@ -25,9 +25,7 @@
       PoolOffset = 100;
       PoolSize = 128;
       EmitDNS = true;
-      DNS = [
-        "1.1.1.1"
-      ];
+      DNS = ["192.168.0.1"];
       EmitRouter = true;
       EmitTimezone = true;
     };
@@ -40,9 +38,7 @@
       Managed = true;
       OtherInformation = true;
       EmitDNS = true;
-      DNS = [
-        "2606:4700:4700::1111"
-      ];
+      DNS = [];
     };
     bridgeConfig = {
       ProxyARP = true;
