@@ -81,15 +81,16 @@
             action = "hijack-dns";
           }
           {
-            rule_set = [
-              "site-direct"
-              "steam-cn"
-            ];
+            rule_set = "steam-cn";
             outbound = "direct";
           }
           {
             rule_set = "site-proxy";
             outbound = "proxy";
+          }
+          {
+            rule_set = "site-direct";
+            outbound = "direct";
           }
           {
             action = "resolve";
