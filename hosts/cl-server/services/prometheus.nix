@@ -86,6 +86,14 @@
         listenAddress = "127.0.0.1";
         port = 9108;
       };
+      bitcoin = {
+        enable = true;
+        listenAddress = "127.0.0.1";
+        port = 9109;
+        rpcPort = 8332;
+        rpcUser = "observer";
+        rpcPasswordFile = pkgs.writeText "rpc-password" "observer";
+      };
     };
     scrapeConfigs = [
       {
@@ -208,6 +216,18 @@
           {
             targets = [
               "${config.services.prometheus.exporters.v2ray.listenAddress}:${builtins.toString config.services.prometheus.exporters.v2ray.port}"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "bitcoin";
+        scrape_interval = "10s";
+        metrics_path = "/scrape";
+        static_configs = [
+          {
+            targets = [
+              "${config.services.prometheus.exporters.bitcoin.listenAddress}:${builtins.toString config.services.prometheus.exporters.bitcoin.port}"
             ];
           }
         ];
