@@ -60,6 +60,8 @@
         rest=1
         rpcbind=0.0.0.0
         rpcport=8332
+        rpcallowip=0.0.0.0/0
+        rpcallowip=::/0
 
         rpcdoccheck=1
       '';
