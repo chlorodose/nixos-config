@@ -19,6 +19,10 @@
         name = "observer";
         passwordHMAC = "9f6d254138caa5b1eb11b70f5b9fe058$4bcb206292ac281a3c5d5d8327bce0ccae8765ad81af64112a5ed67070d42317";
       };
+      admin = {
+        name = "admin";
+        passwordHMAC = "0933f36a3f28cbf866464ee5e6d614ca$5f670f4918dcd6f03ba19de43bfe379f6778ea59906455cac539f91df159ba03";
+      };
     };
     package = pkgs.bitcoind-knots;
     dataDir = "/var/lib/bitcoind";
