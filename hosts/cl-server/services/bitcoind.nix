@@ -36,10 +36,7 @@
 
         blocksxor=0
 
-        startupnotify=${wall} "Bitcoind Start: %s"
-        shutdownnotify=${wall} "Bitcoind Close: %s"
         alertnotify=${wall} "Bitcoind Alert: %s"
-        blocknotify=${wall} "Bitcoind Block: %s"
 
         blockfilterindex=1
         coinstatsindex=1

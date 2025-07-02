@@ -281,7 +281,7 @@
       }
     ];
   };
-  system.preserve.directories = ["/var/lib/${config.services.prometheus.stateDir}"];
+  system.preserve.directories = [ "/var/lib/${config.services.prometheus.stateDir}" ];
   services.nginx.upstreams.prometheus = {
     servers = {
       "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}" =
