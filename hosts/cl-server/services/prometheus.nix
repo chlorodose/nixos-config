@@ -7,7 +7,11 @@
 }:
 {
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 0;
-  systemd.slices.system-observability = { };
+  systemd.slices.system-observability.sliceConfig = {
+    CPUWeight = 50;
+    MemoryHigh = "32G";
+    IOWeight = 60;
+  };
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://internal.chlorodose.me/prometheus/";

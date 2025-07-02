@@ -5,7 +5,11 @@
   ...
 }:
 {
-  systemd.slices.system-database = { };
+  systemd.slices.system-database.sliceConfig = {
+    CPUWeight = 800;
+    MemoryLow = "32G";
+    IOWeight = 800;
+  };
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_17_jit;

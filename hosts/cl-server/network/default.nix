@@ -14,7 +14,11 @@ in
 {
   imports = outputs.lib.scanPath ./.;
 
-  systemd.slices.system-network = { };
+  systemd.slices.system-network.sliceConfig = {
+    CPUWeight = 1000;
+    MemoryMin = "1G";
+    MemoryLow = "4G";
+  };
 
   boot.kernelModules = [ "tcp_bbr" ];
   boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";

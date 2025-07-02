@@ -6,8 +6,11 @@
   ...
 }:
 {
-  systemd.slices.system-fileshare = { };
-  systemd.slices.system-fileshare-samba = { };
+  systemd.slices.system-fileshare.sliceConfig = {
+    MemoryHigh = "16G";
+    IOWeight = 100;
+  };
+  systemd.slices.system-fileshare-samba.sliceConfig = { };
 
   users.users.chlorodose = { };
   users.users."250991817" = {

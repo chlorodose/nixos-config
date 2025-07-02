@@ -21,7 +21,7 @@
     group = "nginx";
   };
 
-  systemd.slices.system-web = { };
+  systemd.slices.system-web.sliceConfig = { };
   services.nginx =
     let
       configs = {
