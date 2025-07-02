@@ -38,6 +38,10 @@
       ''
         statsenable=1
 
+        nodebuglogfile=1
+        printtoconsole=1
+        loglevelalways=1
+
         blocksxor=0
 
         alertnotify=${wall} "Bitcoind Alert: %s"
