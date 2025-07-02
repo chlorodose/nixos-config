@@ -99,10 +99,23 @@
       {
         job_name = "prometheus";
         scrape_interval = "10s";
+        metrics_path = "prometheus/metrics";
         static_configs = [
           {
             targets = [
-              "${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}"
+              "internal.chlorodose.me"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "grafana";
+        scrape_interval = "10s";
+        metrics_path = "grafana/metrics";
+        static_configs = [
+          {
+            targets = [
+              "internal.chlorodose.me"
             ];
           }
         ];
