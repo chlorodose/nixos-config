@@ -74,4 +74,5 @@
     StateDirectory = "bitcoind";
     Slice = config.systemd.slices.system-bitcoin.name;
   };
+  systemd.services."bitcoind-default".wantedBy = lib.mkForce [ ];
 }
