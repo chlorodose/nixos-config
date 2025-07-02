@@ -36,25 +36,31 @@
       ''
         statsenable=1
 
+        assumevalid=0
+
+        logtimestamps=0
         nodebuglogfile=1
         printtoconsole=1
         loglevelalways=1
-
-        blocksxor=0
 
         alertnotify=${wall} "Bitcoind Alert: %s"
 
         blockfilterindex=1
         coinstatsindex=1
+        txindex=1
+        peerblockfilters=12
+        peerbloomfilters=1
 
         lowmem=8192
+
+        par=72
 
 
         listen=0
         listenonion=0
         # v2onlyclearnet=1
-        peerblockfilters=1
-        txreconciliation=1
+
+
         maxuploadtarget=1G
 
 
