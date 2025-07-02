@@ -29,8 +29,6 @@
     pidFile = "/run/bitcoind/bitcoind.pid";
     user = "bitcoind";
     group = "bitcoind";
-    prune = 1000 * 64; # 64 GiB
-    dbCache = 1000 * 8; # 8 GiB
     extraConfig =
       let
         wall = "${lib.getBin pkgs.util-linux}/bin/wall";
