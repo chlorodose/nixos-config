@@ -54,45 +54,6 @@
     };
   };
   systemd.services.vaultwarden.requires = [ "postgresql.service" ];
-  systemd.services.vaultwarden-backup = {
-    path = [
-      pkgs.coreutils
-      pkgs.gnutar
-      pkgs.zstd
-      config.services.postgresql.package
-    ];
-    serviceConfig.Slice = config.systemd.slices.system-vaultwarden.name;
-    requires = [ "postgresql.service" ];
-    startAt = "*-*-* 04:15:00";
-    script = ''
-      set -e -o pipefail
-      umask 0077;
-
-      DATE=$(date +%F)
-      printf "Today is $DATE\n\n"
-
-      printf "Starting dump database...\n"
-      pg_dump --dbname=vaultwarden --no-password --jobs=$(nproc) --no-sync --format=d --file=/tmp/database
-      printf "Database dump success...\n\n"
-
-      printf "Staring creating archive...\n"
-      tar --zstd -cf /srv/backup/vaultwarden/$DATE.tar.zst.tmp -C /tmp database -C /var/lib/vaultwarden attachments -C /var/lib/vaultwarden rsa_key.pem
-      sync /srv/backup/vaultwarden/$DATE.tar.zst.tmp
-      printf "Create archive success...\n\n"
-
-      printf "Finalizing backup...\n"
-      mv /srv/backup/vaultwarden/$DATE.tar.zst.tmp /srv/backup/vaultwarden/$DATE.tar.zst
-      sync /srv/backup/vaultwarden/$DATE.tar.zst
-      rm -rf /tmp/database
-      printf "Backup finished!\n"
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "vaultwarden";
-      Group = "vaultwarden";
-      PrivateTmp = true;
-    };
-  };
   system.preserve.directories = [ config.services.vaultwarden.config.DATA_FOLDER ];
   systemd.services.vaultwarden.serviceConfig.Slice = config.systemd.slices.system-vaultwarden.name;
   services.nginx.upstreams.vaultwarden = {
