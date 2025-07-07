@@ -53,6 +53,7 @@
       HTTPS_PROXY = "http://127.0.0.1:7890";
     };
   };
+  systemd.services.vaultwarden.requires = [ "postgresql.service" ];
   systemd.services.vaultwarden-backup = {
     path = [
       pkgs.coreutils
