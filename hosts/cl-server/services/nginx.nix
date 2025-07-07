@@ -157,6 +157,16 @@
         }
 
         server {
+          ${basic_external}
+
+          server_name vaultwarden.chlorodose.me;
+
+          location / {
+            proxy_pass http://vaultwarden;
+          }
+        }
+
+        server {
           ${basic_internal}
 
           server_name ihass.chlorodose.me;
