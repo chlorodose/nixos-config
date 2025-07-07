@@ -29,8 +29,6 @@ in
 
   # Network
   networking = {
-    hosts."192.168.0.1" = ["internal.chlorodose.me"];
-
     nat = {
       enable = true;
       internalInterfaces = [
