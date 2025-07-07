@@ -6,6 +6,7 @@
 }:
 {
   config = lib.mkIf config.modules.hyprland.enable {
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # for UWSM

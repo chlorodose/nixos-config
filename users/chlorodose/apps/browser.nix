@@ -18,9 +18,6 @@
         { id = "jpbjcnkcffbooppibceonlgknpkniiff"; } # Global Speed
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
       ];
-      commandLineArgs = [
-        "--ozone-platform-hint=auto"
-      ];
     };
   };
 }
