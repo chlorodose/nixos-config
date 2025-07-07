@@ -24,7 +24,9 @@
           bind = [
             "${mod}, Q, exec, ${app} kitty.desktop"
             "${mod}, E, exec, ${app} yazi.desktop"
-            "${mod}, R, exec, ${app} ${config.programs.rofi.package}/bin/rofi -show drun -run-command \"${app} {cmd}\""
+            "${mod}, R, exec, ${app} ${lib.getExe config.programs.rofi.package} -show drun -run-command \"${app} {cmd}\""
+            "${mod}, W, exec, ${app} ${lib.getExe config.programs.rofi.package} -show window"
+            "${mod}, X, exec, ${app} ${lib.getExe pkgs.rofi-rbw-wayland}"
 
             "${mod}, C, killactive,"
             "${altmod}, C, forcekillactive,"

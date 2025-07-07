@@ -16,7 +16,7 @@
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
         { id = "jfedfbgedapdagkghmgibemcoggfppbb"; } # 猫抓
         { id = "jpbjcnkcffbooppibceonlgknpkniiff"; } # Global Speed
-        { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1Password
+        { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
       ];
       commandLineArgs = [
         "--ozone-platform-hint=auto"
