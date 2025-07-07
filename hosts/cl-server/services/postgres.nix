@@ -20,7 +20,7 @@
       ];
     enableTCPIP = true;
     enableJIT = true;
-    dataDir = "/srv/postgresql";
+    dataDir = "/var/lib/postgresql";
     authentication = lib.mkForce ''
       local all all   peer
     '';
@@ -100,6 +100,7 @@
       "pg_stat_statements.track" = "all";
     };
   };
+  system.preserve.directories = [ "/var/lib/postgresql" ];
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {

@@ -12,7 +12,7 @@
   };
   services.home-assistant = {
     enable = true;
-    configDir = "/srv/hass";
+    configDir = "/var/lib/hass";
     config = {
       config = {};
       history = {};
@@ -71,6 +71,7 @@
       ))
     ];
   };
+  system.preserve.directories = [ "/var/lib/hass" ];
   services.nginx.upstreams.home-assistant = {
     servers = {
       "127.0.0.1:${builtins.toString config.services.home-assistant.config.http.server_port}" = { };
