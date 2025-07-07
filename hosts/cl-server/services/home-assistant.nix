@@ -14,6 +14,14 @@
     enable = true;
     configDir = "/srv/hass";
     config = {
+      config = {};
+      history = {};
+      map = {};
+      mobile_app = { };
+      sun = {};
+      system_health = {};
+
+      automation = "!include automations.yaml";
       http = {
         server_host = [
           "127.0.0.1"
@@ -41,7 +49,6 @@
         elevation = "!secret elevation";
         radius = "10";
       };
-      mobile_app = { };
     };
     extraComponents = [
       "default_config"
