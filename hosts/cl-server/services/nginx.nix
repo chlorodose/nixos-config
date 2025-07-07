@@ -91,17 +91,6 @@
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
         '';
-        rewrites = ''
-          server {
-            listen 0.0.0.0:80;
-            listen [::0]:80;
-            server_name www.chlorodose.me;
-            server_name dashboard.chlorodose.me;
-            location / {
-              return 301 https://$host$request_uri;
-            }
-          }
-        '';
         real_ip = ''
           set_real_ip_from 192.168.100.1;
           real_ip_header X-Forwarded-For;
@@ -110,6 +99,32 @@
       robots = ''
         User-agent: *
         Allow: /
+      '';
+      basic_internal = ''
+        listen 0.0.0.0:80;
+        listen [::0]:80;
+        listen 0.0.0.0:443 ssl;
+      	listen [::0]:443 ssl;
+
+        proxy_redirect http:// https://;
+
+        ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
+        ssl_certificate ${./server-cert.pem};
+          
+        if ($realip_remote_addr = "192.168.100.1") {
+          return 403;
+        }
+      '';
+      basic_external = ''
+        listen 0.0.0.0:80;
+        listen [::0]:80;
+        listen 0.0.0.0:443 ssl;
+      	listen [::0]:443 ssl;
+
+        proxy_redirect http:// https://;
+
+        ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
+        ssl_certificate ${./server-cert-cloudflare.pem};
       '';
     in
     {
@@ -122,11 +137,7 @@
         access_log /var/log/nginx/access.log user_default buffer=512k flush=30s;
 
         server {
-          listen 0.0.0.0:443 ssl;
-        	listen [::0]:443 ssl;
-
-          ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
-          ssl_certificate ${./server-cert-cloudflare.pem};
+          ${basic_external}
 
           server_name www.chlorodose.me;
 
@@ -136,17 +147,29 @@
         }
 
         server {
-          listen 0.0.0.0:443 ssl;
-        	listen [::0]:443 ssl;
+          ${basic_external}
 
-          ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
-          ssl_certificate ${./server-cert.pem};
+          server_name hass.chlorodose.me;
+
+          location / {
+            proxy_pass http://home-assistant;
+          }
+        }
+
+        server {
+          ${basic_internal}
+
+          server_name ihass.chlorodose.me;
+
+          location / {
+            proxy_pass http://home-assistant;
+          }
+        }
+
+        server {
+          ${basic_internal}
 
           server_name dashboard.chlorodose.me;
-          
-          if ($realip_remote_addr = "192.168.100.1") {
-            return 403;
-          }
 
           location / {
             proxy_pass http://grafana;
@@ -206,7 +229,7 @@
         multi_accept on;
       '';
     };
-  networking.hosts."192.168.0.1" = ["dashboard.chlorodose.me"];
+  networking.hosts."192.168.0.1" = ["dashboard.chlorodose.me" "ihass.chlorodose.me"];
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {
