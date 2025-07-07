@@ -14,7 +14,7 @@
   };
   services.prometheus = {
     enable = true;
-    webExternalUrl = "https://internal.chlorodose.me/prometheus/";
+    webExternalUrl = "https://dashboard.chlorodose.me/prometheus/";
     listenAddress = "127.0.0.1";
     port = 9099;
     retentionTime = "30d";
@@ -107,7 +107,7 @@
         static_configs = [
           {
             targets = [
-              "internal.chlorodose.me"
+              "dashboard.chlorodose.me"
             ];
           }
         ];
@@ -115,11 +115,10 @@
       {
         job_name = "grafana";
         scrape_interval = "10s";
-        metrics_path = "grafana/metrics";
         static_configs = [
           {
             targets = [
-              "internal.chlorodose.me"
+              "dashboard.chlorodose.me"
             ];
           }
         ];
