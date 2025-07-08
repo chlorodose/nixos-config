@@ -43,6 +43,8 @@
           url = "http://${config.services.prometheus.listenAddress}:${builtins.toString config.services.prometheus.port}/prometheus";
           jsonData = {
             manageAlerts = true;
+            prometheusType = "Prometheus";
+            prometheusVersion = config.services.prometheus.package.version;
             cacheLevel = "Low";
           };
         }
