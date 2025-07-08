@@ -7,7 +7,7 @@
 {
   config = lib.mkIf config.modules.hyprland.enable {
     systemd.user.services.waybar.Unit.RequiredBy = [ "tray.target" ];
-    programs.waybar = {
+    programs.waybar = { # TODO: Add more content
       enable = true;
       systemd = {
         enable = true;

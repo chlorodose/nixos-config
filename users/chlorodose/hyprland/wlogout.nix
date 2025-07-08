@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
   config = lib.mkIf config.modules.hyprland.enable {
-    programs.wlogout.enable = true;
+    programs.wlogout.enable = true; # TODO: Configure
   };
 }

@@ -10,7 +10,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
-  programs.nixvim = lib.mkMerge (
+  programs.nixvim = lib.mkMerge ( # TODO: Add more plugin
     [
       {
         enable = true;

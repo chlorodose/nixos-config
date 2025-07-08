@@ -6,7 +6,7 @@
 }:
 {
   config = lib.mkIf config.modules.hyprland.enable {
-    programs.hyprlock = {
+    programs.hyprlock = { # FIXME: Double hyprlock on wake
       enable = true;
       settings = {
         general = {
