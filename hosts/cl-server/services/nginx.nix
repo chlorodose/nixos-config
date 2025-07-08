@@ -206,6 +206,10 @@
           location /prometheus {
             proxy_pass http://prometheus;
           }
+
+          location /alertmanager {
+            proxy_pass http://alertmanager;
+          }
         }
 
         server {

@@ -18,6 +18,33 @@
     listenAddress = "127.0.0.1";
     port = 9099;
     retentionTime = "30d";
+    alertmanager = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      logFormat = "logfmt";
+      webExternalUrl = "https://dashboard.chlorodose.me/alertmanager/";
+      configuration.receivers = [
+        {
+          name = "default";
+        }
+      ];
+      configuration.route = {
+        receiver = "default";
+      };
+    };
+    alertmanagers = [
+      {
+        scheme = "https";
+        path_prefix = "/alertmanager";
+        static_configs = [
+          {
+            targets = [
+              "dashboard.chlorodose.me"
+            ];
+          }
+        ];
+      }
+    ];
     exporters = {
       node = {
         enable = true;
@@ -104,6 +131,18 @@
         job_name = "prometheus";
         scrape_interval = "10s";
         metrics_path = "prometheus/metrics";
+        static_configs = [
+          {
+            targets = [
+              "dashboard.chlorodose.me"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "alertmanager";
+        scrape_interval = "10s";
+        metrics_path = "alertmanager/metrics";
         static_configs = [
           {
             targets = [
@@ -304,6 +343,12 @@
         { };
     };
   };
+  services.nginx.upstreams.alertmanager = {
+    servers = {
+      "${config.services.prometheus.alertmanager.listenAddress}:${builtins.toString config.services.prometheus.alertmanager.port}" =
+        { };
+    };
+  };
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {
@@ -314,6 +359,7 @@
       })
       [
         "prometheus"
+        "alertmanager"
         "prometheus-wireguard-exporter"
         "prometheus-nginx-exporter"
         "prometheus-node-exporter"

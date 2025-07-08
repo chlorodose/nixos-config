@@ -46,6 +46,19 @@
             cacheLevel = "Low";
           };
         }
+        {
+          name = "Alertmanager";
+          type = "alertmanager";
+          uid = "alertmanager";
+          orgId = 1;
+          editable = false;
+          access = "proxy";
+          url = "http://${config.services.prometheus.alertmanager.listenAddress}:${builtins.toString config.services.prometheus.alertmanager.port}/alertmanager";
+          jsonData = {
+            implementation = "prometheus";
+            handleGrafanaManagedAlerts = true;
+          };
+        }
       ];
       dashboards.settings.providers = [
         {
