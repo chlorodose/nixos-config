@@ -167,6 +167,24 @@
         }
 
         server {
+          ${basic_external}
+
+          server_name matrix.chlorodose.me;
+          server_name matrix.chlorodose.me:443;
+
+          location /_matrix {
+            client_max_body_size ${builtins.toString config.services.matrix-continuwuity.settings.global.max_request_size};
+            proxy_pass http://continuwuity;
+          }
+          location /_conduwuit {
+            proxy_pass http://continuwuity;
+          }
+          location /.well-known/matrix {
+            proxy_pass http://continuwuity;
+          }
+        }
+
+        server {
           ${basic_internal}
 
           server_name ihass.chlorodose.me;
