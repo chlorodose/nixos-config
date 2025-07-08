@@ -6,6 +6,10 @@
   ...
 }:
 {
+  sops.secrets."matrix/token" = {
+    sopsFile = outputs.lib.getSecret "services.yaml";
+    mode = "0444";
+  };
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 0;
   systemd.slices.system-observability.sliceConfig = {
     CPUWeight = 50;
@@ -26,6 +30,15 @@
       configuration.receivers = [
         {
           name = "default";
+          webhook_configs = [
+            {
+              url = "http://127.0.0.1:${builtins.toString config.services.matrix-alertmanager.port}/alerts";
+              http_config.basic_auth = {
+                username = "alertmanager";
+                password_file = config.sops.secrets."random-pass".path;
+              };
+            }
+          ];
         }
       ];
       configuration.route = {
@@ -336,6 +349,22 @@
       }
     ];
   };
+  services.matrix-alertmanager = {
+    enable = true;
+    port = 9233;
+    tokenFile = config.sops.secrets."matrix/token".path;
+    secretFile = config.sops.secrets."random-pass".path;
+    homeserverUrl = "https://matrix.chlorodose.me";
+    matrixUser = "@system:matrix.chlorodose.me";
+    matrixRooms = [
+      {
+        roomId = "!6AYkwtLSbCmvT4n5ZU:matrix.chlorodose.me";
+        receivers = [
+          "default"
+        ];
+      }
+    ];
+  };
   system.preserve.directories = [ "/var/lib/${config.services.prometheus.stateDir}" ];
   services.nginx.upstreams.prometheus = {
     servers = {
@@ -360,6 +389,7 @@
       [
         "prometheus"
         "alertmanager"
+        "matrix-alertmanager"
         "prometheus-wireguard-exporter"
         "prometheus-nginx-exporter"
         "prometheus-node-exporter"
