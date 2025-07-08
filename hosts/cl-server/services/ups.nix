@@ -32,7 +32,7 @@
 
     users."root" = {
       upsmon = "primary";
-      passwordFile = "/etc/machine-id";
+      passwordFile = config.sops.secrets."random-pass".path;
       instcmds = [ "ALL" ];
       actions = [
         "SET"
@@ -41,12 +41,12 @@
     };
     users."exporter" = {
       upsmon = "secondary";
-      passwordFile = "/etc/machine-id";
+      passwordFile = config.sops.secrets."random-pass".path;
     };
 
     upsmon.monitor.ups = {
       user = "root";
-      passwordFile = "/etc/machine-id";
+      passwordFile = config.sops.secrets."random-pass".path;
       system = "ups@127.0.0.1:3493";
     };
 

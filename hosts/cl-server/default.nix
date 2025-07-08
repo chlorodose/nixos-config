@@ -42,4 +42,6 @@
   sops.secrets."user-passwords/chlorodose" = {
     neededForUsers = true;
   };
+
+  
 }

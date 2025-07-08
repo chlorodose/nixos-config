@@ -15,5 +15,8 @@
       generateKey = true;
       sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     };
+    secrets."random-pass" = {
+      mode = "444";
+    };
   };
 }

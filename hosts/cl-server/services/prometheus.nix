@@ -83,7 +83,7 @@
         listenAddress = "127.0.0.1";
         port = 9107;
         nutUser = "observer";
-        passwordPath = "/etc/machine-id";
+        passwordPath = config.sops.secrets."random-pass".path;
       };
       nvidia-gpu = {
         enable = true;
