@@ -88,6 +88,10 @@
       rpcPasswordFile = pkgs.writeText "rpc-password" "observer";
     };
   };
+  services.ntpd-rs = {
+    metrics.enable = true;
+    settings.observability.metrics-exporter-listen = "127.0.0.1:9110";
+  };
   services.prometheus.scrapeConfigs = [
     {
       job_name = "prometheus";
@@ -259,6 +263,17 @@
       ];
     }
     {
+      job_name = "ntpd";
+      static_configs = [
+        {
+          targets = [
+            config.services.ntpd-rs.settings.observability.metrics-exporter-listen
+          ];
+          labels.instance = config.networking.hostName;
+        }
+      ];
+    }
+    {
       job_name = "wireguard";
       static_configs = [
         {
@@ -304,6 +319,7 @@
         "prometheus-smartctl-exporter"
         "prometheus-systemd-exporter"
         "prometheus-v2ray-exporter"
+        "ntpd-rs-metrics"
       ]
   );
 }
