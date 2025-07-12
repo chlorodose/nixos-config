@@ -92,6 +92,19 @@
     metrics.enable = true;
     settings.observability.metrics-exporter-listen = "127.0.0.1:9110";
   };
+  services.matrix-synapse.settings.listeners = [
+    {
+      type = "metrics";
+      tls = false;
+      resources = [
+        {
+          names = [ "metrics" ];
+        }
+      ];
+      port = 9111;
+      bind_addresses = [ "127.0.0.1" ];
+    }
+  ];
   services.prometheus.scrapeConfigs = [
     {
       job_name = "prometheus";
@@ -100,6 +113,17 @@
         {
           targets = [
             "dashboard.chlorodose.me"
+          ];
+          labels.instance = config.networking.hostName;
+        }
+      ];
+    }
+    {
+      job_name = "matrix-synapse";
+      static_configs = [
+        {
+          targets = [
+            "127.0.0.1:9111"
           ];
           labels.instance = config.networking.hostName;
         }
