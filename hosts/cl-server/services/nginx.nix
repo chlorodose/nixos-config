@@ -10,14 +10,14 @@
     format = "binary";
     sopsFile = outputs.lib.getSecret "website/key.pem";
     mode = "0440";
-    owner = "nginx";
+    owner = "root";
     group = "nginx";
   };
   sops.secrets."website/api.auth" = {
     format = "binary";
     sopsFile = outputs.lib.getSecret "website/api.auth";
     mode = "0440";
-    owner = "nginx";
+    owner = "root";
     group = "nginx";
   };
 
@@ -101,30 +101,30 @@
         Allow: /
       '';
       basic_internal = ''
-        listen 0.0.0.0:80;
-        listen [::0]:80;
-        listen 0.0.0.0:443 ssl;
-      	listen [::0]:443 ssl;
+          listen 0.0.0.0:80;
+          listen [::0]:80;
+          listen 0.0.0.0:443 ssl;
+        	listen [::0]:443 ssl;
 
-        proxy_redirect http:// https://;
+          proxy_redirect http:// https://;
 
-        ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
-        ssl_certificate ${./server-cert.pem};
-          
-        if ($realip_remote_addr = "192.168.100.1") {
-          return 403;
-        }
+          ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
+          ssl_certificate ${./server-cert.pem};
+            
+          if ($realip_remote_addr = "192.168.100.1") {
+            return 403;
+          }
       '';
       basic_external = ''
-        listen 0.0.0.0:80;
-        listen [::0]:80;
-        listen 0.0.0.0:443 ssl;
-      	listen [::0]:443 ssl;
+          listen 0.0.0.0:80;
+          listen [::0]:80;
+          listen 0.0.0.0:443 ssl;
+        	listen [::0]:443 ssl;
 
-        proxy_redirect http:// https://;
+          proxy_redirect http:// https://;
 
-        ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
-        ssl_certificate ${./server-cert-cloudflare.pem};
+          ssl_certificate_key ${config.sops.secrets."website/key.pem".path};
+          ssl_certificate ${./server-cert-cloudflare.pem};
       '';
     in
     {
@@ -170,17 +170,10 @@
           ${basic_external}
 
           server_name matrix.chlorodose.me;
-          server_name matrix.chlorodose.me:443;
 
-          location /_matrix {
-            client_max_body_size ${builtins.toString config.services.matrix-continuwuity.settings.global.max_request_size};
-            proxy_pass http://continuwuity;
-          }
-          location /_conduwuit {
-            proxy_pass http://continuwuity;
-          }
-          location /.well-known/matrix {
-            proxy_pass http://continuwuity;
+          location / {
+            client_max_body_size ${config.services.matrix-synapse.settings.max_upload_size};
+            proxy_pass http://synapse;
           }
         }
 
@@ -230,12 +223,12 @@
                   lib.flip lib.mapAttrsToList upstream.servers (
                     name: server: ''
                       server ${name} ${
-                lib.concatStringsSep " " (
-                  lib.mapAttrsToList (
-                    key: value:
-                    if builtins.isBool value then lib.optionalString value key else "${key}=${toString value}"
-                  ) server
-                )
+                        lib.concatStringsSep " " (
+                          lib.mapAttrsToList (
+                            key: value:
+                            if builtins.isBool value then lib.optionalString value key else "${key}=${toString value}"
+                          ) server
+                        )
                       };
                     ''
                   )
@@ -261,7 +254,10 @@
         multi_accept on;
       '';
     };
-  networking.hosts."192.168.0.1" = ["dashboard.chlorodose.me" "ihass.chlorodose.me"];
+  networking.hosts."192.168.0.1" = [
+    "dashboard.chlorodose.me"
+    "ihass.chlorodose.me"
+  ];
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {

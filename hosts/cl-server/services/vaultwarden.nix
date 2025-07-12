@@ -1,9 +1,14 @@
-{ pkgs, config, outputs, ... }:
+{
+  pkgs,
+  config,
+  outputs,
+  ...
+}:
 {
   sops.secrets."vaultwarden" = {
     sopsFile = outputs.lib.getSecret "services.yaml";
     mode = "0400";
-    owner = "vaultwarden";
+    owner = "root";
     group = "vaultwarden";
   };
   systemd.slices.system-vaultwarden.sliceConfig = {
