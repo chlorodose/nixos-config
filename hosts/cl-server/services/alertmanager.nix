@@ -325,7 +325,7 @@
     matrixUser = "@system:matrix.chlorodose.me";
     matrixRooms = [
       {
-        roomId = "!6AYkwtLSbCmvT4n5ZU:matrix.chlorodose.me";
+        roomId = "!xJQVOEGPVfMxycIvYJ:matrix.chlorodose.me";
         receivers = [
           "default"
         ];
