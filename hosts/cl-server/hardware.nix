@@ -11,7 +11,7 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -49,7 +49,6 @@
   fileSystems."/mnt" = {
     label = "data";
     fsType = "bcachefs";
-    options = [ "fsck" "fix_errors" "errors=ro" ];
     neededForBoot = true;
   };
   systemd.extraConfig = "DefaultDeviceTimeoutSec = 3s";

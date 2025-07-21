@@ -41,7 +41,6 @@
   fileSystems."/mnt" = {
     label = "data";
     fsType = "bcachefs";
-    options = [ "fsck" "fix_errors" "errors=ro" ];
     neededForBoot = true;
   };
 
