@@ -5,32 +5,38 @@ keys:
 creation_rules:
   - path_regex: secrets/default.yaml
     key_groups:
-    - pgp:
-      - *user_chlorodose
-      age:
-      - *host_cl-server
-      - *host_cl-laptop
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server
+          - *host_cl-laptop
   - path_regex: secrets/services.yaml
     key_groups:
-    - pgp:
-      - *user_chlorodose
-      age:
-      - *host_cl-server
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server
   - path_regex: secrets/vpn/*
     key_groups:
-    - pgp:
-      - *user_chlorodose
-      age:
-      - *host_cl-server
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server
   - path_regex: secrets/website/*
     key_groups:
-    - pgp:
-      - *user_chlorodose
-      age:
-      - *host_cl-server
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server
   - path_regex: secrets/samba/*
     key_groups:
-    - pgp:
-      - *user_chlorodose
-      age:
-      - *host_cl-server
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server
+  - path_regex: secrets/hass/*
+    key_groups:
+      - pgp:
+          - *user_chlorodose
+        age:
+          - *host_cl-server

@@ -2,9 +2,17 @@
   pkgs,
   config,
   lib,
+  outputs,
   ...
 }:
 {
+  sops.secrets."google-assistant" = {
+    format = "binary";
+    sopsFile = outputs.lib.getSecret "hass/google-assistant.json";
+    mode = "0440";
+    owner = "root";
+    group = "hass";
+  };
   systemd.slices.system-hass.sliceConfig = {
     CPUWeight = 100;
     MemoryHigh = "32G";
@@ -14,12 +22,22 @@
     enable = true;
     configDir = "/var/lib/hass";
     config = {
-      config = {};
-      history = {};
-      map = {};
+      config = { };
+      history = { };
+      map = { };
       mobile_app = { };
-      sun = {};
-      system_health = {};
+      sun = { };
+      system_health = { };
+      google_assistant = {
+        project_id = "homelab-home-assistant";
+        service_account = "!include ${config.sops.secrets."google-assistant".path}";
+        report_state = true;
+        exposed_domains = [
+          "select"
+          "switch"
+          "climate"
+        ];
+      };
 
       automation = "!include automations.yaml";
       http = {
@@ -57,6 +75,7 @@
       "ffmpeg"
       "homekit"
       "nut"
+      "google_assistant"
     ];
     customComponents = [
       (pkgs.home-assistant-custom-components.xiaomi_miot.overrideAttrs (
