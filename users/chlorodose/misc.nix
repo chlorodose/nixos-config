@@ -18,5 +18,19 @@
       key = "942DF679F2B394D4";
     };
   };
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "chlorodose";
+        email = "chlorodose@chlorodose.me";
+      };
+      signing = {
+        backend = "gpg";
+        behavior = "own";
+        key = "942DF679F2B394D4";
+      };
+    };
+  };
   modules.gpg-agent.enable = config.modules.desktop.enable;
 }
