@@ -9,7 +9,7 @@
   imports = outputs.lib.scanPath ./.;
   options.modules.machine.enable = lib.mkEnableOption "machine";
   config = lib.mkIf config.modules.machine.enable {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
     boot.initrd.systemd.enable = true;
 
     programs = {

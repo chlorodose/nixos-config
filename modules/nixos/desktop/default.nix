@@ -11,7 +11,7 @@
   config = lib.mkIf config.modules.desktop.enable {
     systemd.sleep.extraConfig = "";
     networking.networkmanager.enable = true;
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+    boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_zen;
     fonts = {
       packages = with pkgs; [
         material-design-icons
