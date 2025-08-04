@@ -84,5 +84,10 @@
         { };
     };
   };
+  systemd.tmpfiles.settings.grafana."/var/lib/grafana".d = {
+    user = "grafana";
+    group = "grafana";
+    mode = "0750";
+  };
   systemd.services.grafana.serviceConfig.Slice = config.systemd.slices.system-web.name;
 }

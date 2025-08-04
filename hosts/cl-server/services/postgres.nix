@@ -101,6 +101,11 @@
     };
   };
   system.preserve.directories = [ "/var/lib/postgresql" ];
+  systemd.tmpfiles.settings.postgres."/var/lib/postgresql".d = {
+    user = "postgres";
+    group = "postgres";
+    mode = "0750";
+  };
   systemd.services = lib.listToAttrs (
     lib.map
       (value: {
