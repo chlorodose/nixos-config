@@ -3,14 +3,14 @@
   lib,
   inputs,
   outputs,
-  config,
   ...
 }:
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
-  programs.nixvim = lib.mkMerge ( # TODO: Add more plugin
+  programs.nixvim = lib.mkMerge (
+    # TODO: Add more plugin
     [
       {
         enable = true;
@@ -54,5 +54,8 @@
     ]
     ++ (lib.map import (outputs.lib.scanPath ./.))
   );
-  home.sessionVariables.PAGER = "nvim -R -n --cmd 'lua vim.g.is_pager=true'";
+  home.sessionVariables.PAGER = "${pkgs.writeScriptBin "nvim-pager" ''
+    #!${pkgs.bashNonInteractive}/bin/sh
+    exec nvim -R -n --cmd 'lua vim.g.is_pager=true'
+  ''}/bin/nvim-pager";
 }
