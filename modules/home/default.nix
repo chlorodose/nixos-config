@@ -51,7 +51,6 @@
         trashy
         nix-output-monitor
         gum
-        qemu_full
         ffmpeg-full
       ])
       ++ (lib.optionals config.modules.desktop.enable (
