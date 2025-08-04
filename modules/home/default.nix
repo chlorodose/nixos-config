@@ -3,6 +3,7 @@
   lib,
   outputs,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -49,14 +50,19 @@
         wireguard-tools
         smartmontools
         trashy
+        nix-output-monitor
+        gum
+        qemu_full
+        ffmpeg-full
       ])
-      ++ (
-        lib.optionals config.modules.desktop.enable (with pkgs; [
+      ++ (lib.optionals config.modules.desktop.enable (
+        with pkgs;
+        [
           nixd
           nixfmt-rfc-style
           brightnessctl
           playerctl
-        ])
-      );
+        ]
+      ));
   };
 }
