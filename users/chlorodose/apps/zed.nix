@@ -30,6 +30,48 @@
             ];
           };
         };
+        lsp = {
+          rust-analyzer = {
+            initialization_options = {
+              assist = {
+                emitMustUse = true;
+                preferSelf = true;
+              };
+              cfg.setTest = false;
+              diagnostics = {
+                experimental.enable = true;
+                styleLints.enable = true;
+              };
+              hover = {
+                memoryLayout = {
+                  niches = true;
+                  padding = "decimal";
+                };
+              };
+              imports.granularity.enforce = true;
+              inlayHints = {
+                closureStyle = "rust_analyzer";
+                implicitSizedBoundHints.enable = true;
+              };
+              interpret.tests = true;
+              lru.capacity = 256;
+              check = {
+                command = "clippy";
+                extraArgs = [
+                  "--"
+                  "-W"
+                  "clippy::pedantic"
+                  "-A"
+                  "clippy::similar-names"
+                ];
+              };
+              cargo = {
+                features = "all";
+                allTargets = false;
+              };
+            };
+          };
+        };
         icon_theme = "Catppuccin Mocha";
         base_keymap = "VSCode";
         theme = "Catppuccin Mocha (Blur)";
