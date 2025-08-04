@@ -11,6 +11,10 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
+  systemd.settings.Manager = {
+    DefaultDeviceTimeoutSec = "3s";
+  };
+
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -50,8 +54,10 @@
     label = "data";
     fsType = "bcachefs";
     neededForBoot = true;
+    options = [
+      "x-systemd.mount-timeout=15m"
+    ];
   };
-  systemd.extraConfig = "DefaultDeviceTimeoutSec = 3s";
 
   nixpkgs.hostPlatform = "x86_64-linux";
 }

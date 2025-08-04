@@ -21,7 +21,12 @@
       ];
     };
 
-    systemd.watchdog.runtimeTime = "30s";
+    systemd.settings.Manager = {
+      KExecWatchdogSec = "5min";
+      RebootWatchdogSec = "10min";
+      RuntimeWatchdogSec = "30s";
+    };
+
     systemd.sleep.extraConfig = lib.mkDefault ''
       [Sleep]
       AllowSuspend=no
