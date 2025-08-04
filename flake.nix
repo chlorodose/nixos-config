@@ -47,18 +47,11 @@
     in
     {
       lib = (import ./lib) inputs.nixpkgs.lib;
-      defaultPackage = inputs.nixpkgs.lib.genAttrs inputs.flake-utils.lib.defaultSystems (system: 
-        let 
-          pkgs = inputs.nixpkgs.legacyPackages.${system}; 
-          sources = self.lib.listRoots(outputs);
-        in
-          pkgs.runCommand "gc-anchor" {
-            nativeBuildInputs = sources;
-            SOURCES = builtins.concatStringsSep "\n" sources;
-          } ''
-            mkdir -p $out
-            echo "$SOURCES" > $out/sources
-          ''
+      defaultPackage = inputs.nixpkgs.lib.genAttrs inputs.flake-utils.lib.defaultSystems (
+        system:
+        inputs.nixpkgs.legacyPackages.${system}.writeText "root-gc-anchor" (
+          builtins.concatStringsSep "\n" (self.lib.listRoots outputs)
+        )
       );
       nixosModules.default = import ./modules/nixos;
       homeModules.default = import ./modules/home;
