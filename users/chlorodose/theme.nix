@@ -13,5 +13,7 @@
     nvim.enable = false;
     mako.enable = false;
     vscode.profiles.default.enable = false;
+    zed.enable = false;
+    zed.icons.enable = false;
   };
 }
