@@ -24,7 +24,6 @@
       "systemd"
       "postgres"
       "url-preview"
-      "user-search"
       "cache-memory"
       "sentry"
       "jwt"
