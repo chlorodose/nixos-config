@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   outputs,
   ...
 }:
@@ -174,6 +173,8 @@
       ];
       suppress_key_server_warning = true;
 
+      media_store_path = "/srv/media/matrix-synapse";
+
       # user_consent = {
       #   template_dir = pkgs.writeTextFile {
       #     name = "policy-templates";
@@ -216,7 +217,7 @@
     };
   };
   system.preserve.directories = [
-    config.services.matrix-synapse.dataDir
+    config.services.matrix-synapse.settings.media_store_path
   ];
   services.nginx.upstreams.synapse = {
     servers = {
