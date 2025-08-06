@@ -21,6 +21,7 @@
     services.openssh.settings.DenyUsers = lib.mkDefault [ "*" ];
 
     users.users.root.hashedPasswordFile = config.sops.secrets."user-passwords/root".path;
+    users.users.root.hashedPassword = lib.mkForce null;
     sops.secrets."user-passwords/root" = {
       neededForUsers = true;
     };

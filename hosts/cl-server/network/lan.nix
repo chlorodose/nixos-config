@@ -1,8 +1,8 @@
 { ... }:
 {
   networking.bridges.lan.interfaces = [
-    "ens4f0"
-    "ens4f1"
+    "enp2s0f0"
+    "enp2s0f1"
   ];
   systemd.network.networks."10-lan" = {
     matchConfig = {

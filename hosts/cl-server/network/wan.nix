@@ -7,7 +7,7 @@
 {
   systemd.network.networks."10-base-wan" = {
     matchConfig = {
-      Name = "enp6s0";
+      Name = "enp5s0";
     };
     linkConfig = {
       Unmanaged = true;
@@ -52,7 +52,7 @@
       linkname wan
       ifname wan
 
-      enp6s0
+      enp5s0
 
       persist
       lcp-echo-interval 15
@@ -72,13 +72,13 @@
     '';
   };
   systemd.services."pppd-wan" = {
-    bindsTo = [ "sys-subsystem-net-devices-enp6s0.device" ];
-    after = [ "sys-subsystem-net-devices-enp6s0.device" ];
+    bindsTo = [ "sys-subsystem-net-devices-enp5s0.device" ];
+    after = [ "sys-subsystem-net-devices-enp5s0.device" ];
     serviceConfig = {
       Type = "notify";
       Slice = config.systemd.slices.system-network.name;
     };
-    preStart = "${pkgs.iproute2}/bin/ip link set enp6s0 up";
+    preStart = "${pkgs.iproute2}/bin/ip link set enp5s0 up";
     postStart = "${pkgs.systemd}/bin/networkctl reconfigure wan";
   };
   sops.secrets."ppp/wan" = {
