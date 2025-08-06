@@ -19,6 +19,7 @@
   modules.preservation.enable = true;
   modules.bluetooth.enable = true;
   modules.kdeconnect.enable = true;
+  modules.bcachefs.enable = true;
 
   users.users.chlorodose = {
     isNormalUser = true;

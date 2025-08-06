@@ -17,6 +17,7 @@
   modules.remote.enable = true;
   modules.systemd-boot.enable = true;
   modules.preservation.enable = true;
+  modules.zfs.enable = true;
 
   users.users.chlorodose = {
     isNormalUser = true;
@@ -43,5 +44,4 @@
     neededForUsers = true;
   };
 
-  
 }
