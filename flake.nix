@@ -47,6 +47,19 @@
     in
     {
       lib = (import ./lib) inputs.nixpkgs.lib;
+      packages = inputs.nixpkgs.lib.genAttrs inputs.flake-utils.lib.defaultSystems (
+        system:
+        let
+          lib = inputs.nixpkgs.lib;
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
+        in
+        (lib.listToAttrs (
+          lib.map (sub: rec {
+            value = pkgs.callPackage sub { };
+            name = value.pname;
+          }) (outputs.lib.scanPath ./pkgs)
+        ))
+      );
       defaultPackage = inputs.nixpkgs.lib.genAttrs inputs.flake-utils.lib.defaultSystems (
         system:
         inputs.nixpkgs.legacyPackages.${system}.writeText "root-gc-anchor" (

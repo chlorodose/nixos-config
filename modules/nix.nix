@@ -9,6 +9,7 @@
       pkg:
       builtins.elem (lib.getName pkg) [
         "vscode"
+        "qq"
         "timescaledb"
         "nvidia-x11"
         "nvidia-persistenced"
